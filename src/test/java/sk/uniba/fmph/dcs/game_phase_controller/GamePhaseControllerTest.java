@@ -1,22 +1,21 @@
 package sk.uniba.fmph.dcs.game_phase_controller;
 
 import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Test.None;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Collection;
 
+import org.junit.jupiter.api.Test;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import sk.uniba.fmph.dcs.stone_age.Location;
 import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StateMock implements InterfaceGamePhaseState {
     List<ActionResult> expectedActionResults;
@@ -83,7 +82,7 @@ class StateMock implements InterfaceGamePhaseState {
     }
 }
 
-public class GamePhaseControllerTest {
+class GamePhaseControllerTest {
 
     private StateMock placeFiguresState;
     private StateMock makeActionState;
@@ -94,7 +93,7 @@ public class GamePhaseControllerTest {
     private StateMock gameEndState;
     private GamePhaseController controller;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         placeFiguresState = new StateMock();
         makeActionState = new StateMock();
@@ -207,9 +206,10 @@ public class GamePhaseControllerTest {
         checkStateString("PLACE_FIGURES,0/0/None");
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testIncorrectPlayerOrderObjectFailure() {
-        placeFigures(0, 3);
+
+        assertThrows(AssertionError.class, () -> placeFigures(0, 3));
     }
 
     @Test
