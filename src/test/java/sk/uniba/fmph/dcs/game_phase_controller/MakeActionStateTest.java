@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import sk.uniba.fmph.dcs.stone_age.*;
 
-import javax.swing.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
