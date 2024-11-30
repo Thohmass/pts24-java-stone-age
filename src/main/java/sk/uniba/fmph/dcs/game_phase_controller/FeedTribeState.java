@@ -14,7 +14,7 @@ public final class FeedTribeState implements InterfaceGamePhaseState {
 
     private final Map<PlayerOrder, InterfaceFeedTribe> interfaceFeedTribeCollection;
 
-    public FeedTribeState(final Map<PlayerOrder, InterfaceFeedTribe>  interfaceFeedTribeCollection) {
+    public FeedTribeState(final Map<PlayerOrder, InterfaceFeedTribe> interfaceFeedTribeCollection) {
         this.interfaceFeedTribeCollection = interfaceFeedTribeCollection;
     }
 
