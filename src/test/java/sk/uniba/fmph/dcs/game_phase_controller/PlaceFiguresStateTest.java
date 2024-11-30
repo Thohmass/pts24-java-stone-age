@@ -1,8 +1,13 @@
 package sk.uniba.fmph.dcs.game_phase_controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import sk.uniba.fmph.dcs.stone_age.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import sk.uniba.fmph.dcs.stone_age.HasAction;
+import sk.uniba.fmph.dcs.stone_age.InterfaceFigureLocation;
+import sk.uniba.fmph.dcs.stone_age.Location;
+import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.ActionResult;
+import sk.uniba.fmph.dcs.stone_age.Effect;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,7 +23,7 @@ public class PlaceFiguresStateTest {
     private PlaceFiguresState placeFiguresState;
     private Map<Location, InterfaceFigureLocation> places;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         location = TOOL_MAKER;
         player = new PlayerOrder(0, 0);
