@@ -13,7 +13,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static sk.uniba.fmph.dcs.stone_age.Location.TOOL_MAKER;
 
 public class PlaceFiguresStateTest {
