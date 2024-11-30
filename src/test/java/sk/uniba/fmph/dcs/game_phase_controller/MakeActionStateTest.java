@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-
 public class MakeActionStateTest {
 
     private Location location;;
@@ -64,8 +63,7 @@ public class MakeActionStateTest {
         makeActionState = new MakeActionState(places);
     }
 
-
-    //Successful action
+    // Successful action
     @Test
     public void testMakeActionSuccesful() {
         actionSuccess = true;
@@ -73,7 +71,7 @@ public class MakeActionStateTest {
         assertEquals(ActionResult.ACTION_DONE, result);
     }
 
-    //Unsuccessful action
+    // Unsuccessful action
     @Test
     public void testMakeActionUnsuccessful() {
         ActionResult result = makeActionState.makeAction(player, location, null, null);
