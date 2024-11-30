@@ -49,16 +49,13 @@ public class AllPlayersTakeARewardStateTest {
     public void testTryToMakeAutomaticAction() {
         PlayerOrder player = new PlayerOrder(1, 1);
 
-        // Test case: No action possible
         AllPlayersTakeARewardState state = new AllPlayersTakeARewardState(
                 new MockTakeReward(false, HasAction.NO_ACTION_POSSIBLE));
         assertEquals(HasAction.NO_ACTION_POSSIBLE, state.tryToMakeAutomaticAction(player));
 
-        // Test case: Automatic action done
         state = new AllPlayersTakeARewardState(new MockTakeReward(true, HasAction.AUTOMATIC_ACTION_DONE));
         assertEquals(HasAction.AUTOMATIC_ACTION_DONE, state.tryToMakeAutomaticAction(player));
 
-        // Test case: Waiting for player action
         state = new AllPlayersTakeARewardState(new MockTakeReward(false, HasAction.WAITING_FOR_PLAYER_ACTION));
         assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, state.tryToMakeAutomaticAction(player));
     }
