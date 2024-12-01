@@ -32,31 +32,47 @@ public class AllPlayersTakeARewardStateTest {
     }
 
     @Test
-    public void testMakeAllPlayersTakeARewardChoice() {
+    public void testMakeAllPlayersTakeARewardChoiceAutomaticActionDone() {
         PlayerOrder player = new PlayerOrder(1, 1);
 
-        // Test case: Reward is successfully taken
         AllPlayersTakeARewardState state = new AllPlayersTakeARewardState(
                 new MockTakeReward(true, HasAction.AUTOMATIC_ACTION_DONE));
         assertEquals(ActionResult.ACTION_DONE, state.makeAllPlayersTakeARewardChoice(player, Effect.WOOD));
 
-        // Test case: Reward is not successfully taken
-        state = new AllPlayersTakeARewardState(new MockTakeReward(false, HasAction.WAITING_FOR_PLAYER_ACTION));
+    }
+
+    @Test
+    public void testMakeAllPlayersTakeARewardChoiceWaitingForPlayerAction() {
+        PlayerOrder player = new PlayerOrder(1, 1);
+
+        AllPlayersTakeARewardState state = new AllPlayersTakeARewardState(
+                new MockTakeReward(false, HasAction.WAITING_FOR_PLAYER_ACTION));
         assertEquals(ActionResult.FAILURE, state.makeAllPlayersTakeARewardChoice(player, Effect.WOOD));
     }
 
     @Test
-    public void testTryToMakeAutomaticAction() {
+    public void testTryToMakeAutomaticActionNoActionPossible() {
         PlayerOrder player = new PlayerOrder(1, 1);
 
         AllPlayersTakeARewardState state = new AllPlayersTakeARewardState(
                 new MockTakeReward(false, HasAction.NO_ACTION_POSSIBLE));
         assertEquals(HasAction.NO_ACTION_POSSIBLE, state.tryToMakeAutomaticAction(player));
+    }
 
-        state = new AllPlayersTakeARewardState(new MockTakeReward(true, HasAction.AUTOMATIC_ACTION_DONE));
+    @Test
+    public void testTryToMakeAutomaticActionFailAutomaticActionDone() {
+        PlayerOrder player = new PlayerOrder(1, 1);
+        AllPlayersTakeARewardState state = new AllPlayersTakeARewardState(
+                new MockTakeReward(true, HasAction.AUTOMATIC_ACTION_DONE));
         assertEquals(HasAction.AUTOMATIC_ACTION_DONE, state.tryToMakeAutomaticAction(player));
+    }
 
-        state = new AllPlayersTakeARewardState(new MockTakeReward(false, HasAction.WAITING_FOR_PLAYER_ACTION));
+    @Test
+    public void testTryToMakeAutomaticActionFailWaitingForPlayerActionDone() {
+        PlayerOrder player = new PlayerOrder(1, 1);
+        AllPlayersTakeARewardState state = new AllPlayersTakeARewardState(
+                new MockTakeReward(false, HasAction.WAITING_FOR_PLAYER_ACTION));
         assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, state.tryToMakeAutomaticAction(player));
     }
+
 }
