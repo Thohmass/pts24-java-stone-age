@@ -16,16 +16,14 @@ public final class PlayerFigures {
         this.figures = this.totalFigures;
     }
 
-    public void addNewFigure() throws LimitExceededException { // max 1 per round
-        if (this.totalFigures < this.maxFigures) {
-            if (!addedThisRound) {
+    public boolean addNewFigure() { // max 1 per round
+        if (this.totalFigures < this.maxFigures && !addedThisRound) {
                 this.figures++;
                 this.totalFigures++;
                 this.addedThisRound = true;
-            }
-        } else {
-            throw new LimitExceededException();
+                return true;
         }
+       return false;
     }
 
     public boolean hasFigures(final int count) {
