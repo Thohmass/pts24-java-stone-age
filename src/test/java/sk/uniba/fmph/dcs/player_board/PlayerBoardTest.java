@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerBoardTest {
 
-
     @Test
     public void testItIsNotPossibleToStartNewTurnWhenTribeIsNotFed() {
         PlayerBoard board = new PlayerBoard(new PlayerResourcesAndFood(), new PlayerFigures(),
