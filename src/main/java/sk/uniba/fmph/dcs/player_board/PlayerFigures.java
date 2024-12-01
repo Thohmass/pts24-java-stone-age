@@ -1,5 +1,7 @@
 package sk.uniba.fmph.dcs.player_board;
 
+import javax.naming.LimitExceededException;
+
 public final class PlayerFigures {
     private int totalFigures;
     private int figures;
@@ -14,11 +16,15 @@ public final class PlayerFigures {
         this.figures = this.totalFigures;
     }
 
-    public void addNewFigure() { // max 1 per round
-        if (this.totalFigures < this.maxFigures && !addedThisRound) {
-            this.figures++;
-            this.totalFigures++;
-            this.addedThisRound = true;
+    public void addNewFigure() throws LimitExceededException { // max 1 per round
+        if (this.totalFigures < this.maxFigures) {
+            if (!addedThisRound) {
+                this.figures++;
+                this.totalFigures++;
+                this.addedThisRound = true;
+            }
+        } else {
+            throw new LimitExceededException();
         }
     }
 

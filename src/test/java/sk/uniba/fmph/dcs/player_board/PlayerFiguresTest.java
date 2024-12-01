@@ -2,11 +2,13 @@ package sk.uniba.fmph.dcs.player_board;
 
 import org.junit.jupiter.api.Test;
 
+import javax.naming.LimitExceededException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerFiguresTest {
     @Test
-    void itAddsFigures() {
+    void itAddsFigures() throws LimitExceededException {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
@@ -54,7 +56,7 @@ class PlayerFiguresTest {
     }
 
     @Test
-    void newTurnFigureCountCorrect() {
+    void newTurnFigureCountCorrect() throws LimitExceededException {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
@@ -67,7 +69,7 @@ class PlayerFiguresTest {
     }
 
     @Test
-    void takesNewFigureOnlyOnce() {
+    void takesNewFigureOnlyOnce() throws LimitExceededException {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
@@ -75,4 +77,21 @@ class PlayerFiguresTest {
         assertEquals(6, figures.getTotalFigures());
     }
 
+    @Test
+    void maximumFiguresReached() throws LimitExceededException {
+        PlayerFigures figures = new PlayerFigures();
+
+        figures.addNewFigure();
+
+        figures.newTurn();
+        figures.addNewFigure();
+        figures.newTurn();
+        figures.addNewFigure();
+        figures.newTurn();
+        figures.addNewFigure();
+        figures.newTurn();
+        figures.addNewFigure();
+        figures.newTurn();
+        assertThrows(LimitExceededException.class, figures::addNewFigure);
+    }
 }
