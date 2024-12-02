@@ -10,10 +10,21 @@ public final class CivilizationCardDeck {
 
     public CivilizationCardDeck(final CivilisationCard[] cards) {
         this.deck = new Stack<>();
+        for (CivilisationCard card : cards) {
+            this.deck.push(card);
+        }
     }
 
     public Optional<CivilisationCard> getTop() {
-        return Optional.empty();
+        if (this.deck.empty()) {
+            
+            return Optional.empty();
+        }
+
+        return Optional.of(this.deck.pop());
     }
 
+    public String state() {
+        return "Deck size: " + this.deck.size();
+    }
 }
