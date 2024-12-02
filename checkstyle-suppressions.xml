@@ -16,7 +16,5 @@
    <suppress checks="LineLength"
              files="[/\\]src"/>
    <suppress checks="NoWhitespaceAfter"
-             files="PlayerCivilisationCard"/>
-   <suppress checks="NoWhitespaceAfter"
-             files="GetChoice"/>
+             files="PlayerCivilisationCards.java"/>
 </suppressions>
