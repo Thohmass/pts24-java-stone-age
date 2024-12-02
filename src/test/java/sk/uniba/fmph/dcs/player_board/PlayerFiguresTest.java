@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerFiguresTest {
     @Test
-    void itAddsFigures() throws LimitExceededException {
+    void itAddsFigures() {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
@@ -56,7 +56,7 @@ class PlayerFiguresTest {
     }
 
     @Test
-    void newTurnFigureCountCorrect() throws LimitExceededException {
+    void newTurnFigureCountCorrect() {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
@@ -69,7 +69,7 @@ class PlayerFiguresTest {
     }
 
     @Test
-    void takesNewFigureOnlyOnce() throws LimitExceededException {
+    void takesNewFigureOnlyOnce() {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
@@ -78,7 +78,7 @@ class PlayerFiguresTest {
     }
 
     @Test
-    void maximumFiguresReached() throws LimitExceededException {
+    void maximumFiguresReached() {
         PlayerFigures figures = new PlayerFigures();
 
         figures.addNewFigure();
