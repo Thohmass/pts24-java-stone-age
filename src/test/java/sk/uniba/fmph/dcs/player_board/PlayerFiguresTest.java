@@ -2,8 +2,6 @@ package sk.uniba.fmph.dcs.player_board;
 
 import org.junit.jupiter.api.Test;
 
-import javax.naming.LimitExceededException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerFiguresTest {
