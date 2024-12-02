@@ -92,6 +92,6 @@ class PlayerFiguresTest {
         figures.newTurn();
         figures.addNewFigure();
         figures.newTurn();
-        assertThrows(LimitExceededException.class, figures::addNewFigure);
+        assertFalse(figures::addNewFigure);
     }
 }
