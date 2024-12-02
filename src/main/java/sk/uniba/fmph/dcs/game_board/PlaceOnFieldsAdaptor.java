@@ -4,11 +4,11 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
-public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInternal {
-    private final ToolMakerHutFields tools;
+public final class PlaceOnFieldsAdaptor implements InterFaceFigureLocationInternal {
+    private final ToolMakerHutFields fields;
 
-    public PlaceOnToolMakerAdaptor(final ToolMakerHutFields tools) {
-        this.tools = tools;
+    public PlaceOnFieldsAdaptor(final ToolMakerHutFields fields) {
+        this.fields = fields;
     }
 
     @Override
@@ -16,15 +16,15 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
         if (tryToPlaceFigures(player, figureCount) == HasAction.NO_ACTION_POSSIBLE) {
             return false;
         }
-        return tools.placeOnToolMaker(player);
+        return fields.placeOnFields(player);
     }
 
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
-        if (count == 1 && player.playerBoard().hasFigures(count) && tools.canPlaceOnToolMaker(player)) {
-            return HasAction.NO_ACTION_POSSIBLE;
+        if (count == 1 && player.playerBoard().hasFigures(count) && fields.canPlaceOnFields(player)) {
+            return HasAction.WAITING_FOR_PLAYER_ACTION;
         }
-        return HasAction.WAITING_FOR_PLAYER_ACTION;
+        return HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override
@@ -32,9 +32,10 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
         if (skipAction(player)) {
             return ActionResult.FAILURE;
         }
-        return tools.actionToolMaker(player) ? ActionResult.ACTION_DONE : ActionResult.FAILURE;
+        return fields.actionFields(player) ? ActionResult.ACTION_DONE : ActionResult.FAILURE;
     }
 
+    // can only if try to make action returns false?
     @Override
     public boolean skipAction(final Player player) {
         return tryToMakeAction(player) == HasAction.NO_ACTION_POSSIBLE;
@@ -42,11 +43,11 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
 
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        return tools.canActionToolMaker(player) ? HasAction.WAITING_FOR_PLAYER_ACTION : HasAction.NO_ACTION_POSSIBLE;
+        return fields.canActionFields(player) ? HasAction.WAITING_FOR_PLAYER_ACTION : HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override
     public boolean newTurn() {
-        return tools.newTurn();
+        return fields.newTurn();
     }
 }

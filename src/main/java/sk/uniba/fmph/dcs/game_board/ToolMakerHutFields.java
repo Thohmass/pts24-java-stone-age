@@ -33,7 +33,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean actionToolMaker(final Player player) {
-        if (toolMakerFigures[0].equals(player.playerOrder())) {
+        if (canActionToolMaker(player)) {
             player.playerBoard().giveEffect(new Effect[] { Effect.TOOL });
             canToolMaker = false;
             return true;
@@ -58,7 +58,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean actionHut(final Player player) {
-        if (hutFigures[0].equals(player.playerOrder())) {
+        if (canActionHut(player)) {
             player.playerBoard().giveFigure();
             canHut = false;
             return true;
@@ -80,7 +80,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean actionFields(final Player player) {
-        if (fieldsFigures[0].equals(player.playerOrder())) {
+        if (canActionFields(player)) {
             player.playerBoard().giveEffect(new Effect[] { Effect.FIELD });
             canFields = false;
             return true;
@@ -117,16 +117,16 @@ public final class ToolMakerHutFields {
         return false;
     }
 
-    public boolean getCanHut() {
-        return canHut != null && canHut;
+    public boolean canActionHut(final Player player) {
+        return canHut != null && canHut && hutFigures[0].equals(player.playerOrder());
     }
 
-    public boolean getCanFields() {
-        return canFields != null && canFields;
+    public boolean canActionToolMaker(final Player player) {
+        return canToolMaker != null && canToolMaker && toolMakerFigures[0].equals(player.playerOrder());
     }
 
-    public boolean getCanToolMaker() {
-        return canToolMaker != null && canToolMaker;
+    public boolean canActionFields(final Player player) {
+        return canFields != null && canFields && fieldsFigures[0].equals(player.playerOrder());
     }
 
     public String state() {

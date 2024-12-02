@@ -4,11 +4,11 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
-public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInternal {
-    private final ToolMakerHutFields tools;
+public final class PlaceOnHutAdaptor implements InterFaceFigureLocationInternal {
+    private final ToolMakerHutFields hut;
 
-    public PlaceOnToolMakerAdaptor(final ToolMakerHutFields tools) {
-        this.tools = tools;
+    public PlaceOnHutAdaptor(final ToolMakerHutFields hut) {
+        this.hut = hut;
     }
 
     @Override
@@ -16,15 +16,15 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
         if (tryToPlaceFigures(player, figureCount) == HasAction.NO_ACTION_POSSIBLE) {
             return false;
         }
-        return tools.placeOnToolMaker(player);
+        return hut.placeOnHut(player);
     }
 
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
-        if (count == 1 && player.playerBoard().hasFigures(count) && tools.canPlaceOnToolMaker(player)) {
-            return HasAction.NO_ACTION_POSSIBLE;
+        if (count == 2 && player.playerBoard().hasFigures(count) && hut.canPlaceOnHut(player)) {
+            return HasAction.WAITING_FOR_PLAYER_ACTION;
         }
-        return HasAction.WAITING_FOR_PLAYER_ACTION;
+        return HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override
@@ -32,7 +32,7 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
         if (skipAction(player)) {
             return ActionResult.FAILURE;
         }
-        return tools.actionToolMaker(player) ? ActionResult.ACTION_DONE : ActionResult.FAILURE;
+        return hut.actionHut(player) ? ActionResult.ACTION_DONE : ActionResult.FAILURE;
     }
 
     @Override
@@ -42,11 +42,11 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
 
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        return tools.canActionToolMaker(player) ? HasAction.WAITING_FOR_PLAYER_ACTION : HasAction.NO_ACTION_POSSIBLE;
+        return hut.canActionHut(player) ? HasAction.WAITING_FOR_PLAYER_ACTION : HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override
     public boolean newTurn() {
-        return tools.newTurn();
+        return hut.newTurn();
     }
 }
