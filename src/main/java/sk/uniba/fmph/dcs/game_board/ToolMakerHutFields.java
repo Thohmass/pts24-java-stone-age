@@ -7,13 +7,16 @@ public final class ToolMakerHutFields {
     private PlayerOrder[] toolMakerFigures;
     private PlayerOrder[] hutFigures;
     private PlayerOrder[] fieldsFigures;
-    private int restriction;
+    private final int restriction;
+
+    private final int noRestrictionPlayers = 4;
+    private final int noRestriction = 3;
 
     private Boolean canToolMaker;
     private Boolean canHut;
     private Boolean canFields;
 
-    public ToolMakerHutFields() {
+    public ToolMakerHutFields(final int players) {
         this.toolMakerFigures = new PlayerOrder[1];
         this.hutFigures = new PlayerOrder[2];
         this.fieldsFigures = new PlayerOrder[1];
@@ -21,6 +24,8 @@ public final class ToolMakerHutFields {
         canToolMaker = null;
         canHut = null;
         canFields = null;
+
+        restriction = players < noRestrictionPlayers ? noRestriction - 1 : noRestriction;
     }
 
     public boolean placeOnToolMaker(final Player player) {
@@ -42,7 +47,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnToolMaker(final Player player) {
-        return toolMakerFigures[0] == null;
+        return toolMakerFigures[0] == null && canPlace();
     }
 
     public boolean placeOnHut(final Player player) {
@@ -67,7 +72,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnHut(final Player player) {
-        return hutFigures[0] == null;
+        return hutFigures[0] == null && canPlace();
     }
 
     public boolean placeOnFields(final Player player) {
@@ -89,7 +94,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnFields(final Player player) {
-        return fieldsFigures[0] == null;
+        return fieldsFigures[0] == null && canPlace();
     }
 
     public boolean newTurn() {
@@ -127,6 +132,20 @@ public final class ToolMakerHutFields {
 
     public boolean canActionFields(final Player player) {
         return canFields != null && canFields && fieldsFigures[0].equals(player.playerOrder());
+    }
+
+    private boolean canPlace() {
+        int filled = 0;
+        if (toolMakerFigures[0] == null) {
+            filled++;
+        }
+        if (hutFigures[0] == null) {
+            filled++;
+        }
+        if (fieldsFigures[0] == null) {
+            filled++;
+        }
+        return filled < restriction;
     }
 
     public String state() {
