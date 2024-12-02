@@ -9,6 +9,8 @@ public interface InterfacePlayerBoardGameBoard {
 
     boolean takeResources(Effect[] stuff);
 
+    boolean giveFigure();
+
     boolean takeFigures(int count);
 
     boolean hasFigures(int count);

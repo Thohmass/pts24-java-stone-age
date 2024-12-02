@@ -17,4 +17,5 @@
              files="[/\\]src"/>
    <suppress checks="NoWhitespaceAfter"
              files="PlayerCivilisationCards.java"/>
+   <suppress files="ToolMakerHutFields.java" checks="NoWhitespaceAfter"/>
 </suppressions>

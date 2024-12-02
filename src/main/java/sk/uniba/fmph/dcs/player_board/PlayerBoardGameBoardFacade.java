@@ -36,6 +36,11 @@ public final class PlayerBoardGameBoardFacade
     }
 
     @Override
+    public boolean giveFigure() {
+        return playerBoard.getFigures().addNewFigure();
+    }
+
+    @Override
     public boolean takeFigures(final int count) {
         return playerBoard.getFigures().takeFigures(count);
     }
