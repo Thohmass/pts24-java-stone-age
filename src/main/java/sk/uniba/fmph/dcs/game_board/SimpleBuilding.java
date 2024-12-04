@@ -1,7 +1,6 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.OptionalInt;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,20 +8,19 @@ import org.apache.commons.collections4.CollectionUtils;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
 public final class SimpleBuilding implements Building {
-    private ArrayList<Effect> requiredResources;
+    private final Effect[] requiredResources;
 
-    public SimpleBuilding(final Collection<Effect> resources) {
-        this.requiredResources = new ArrayList<Effect>();
+    public SimpleBuilding(final Effect[] resources) {
         for (Effect resource : resources) {
             if (!resource.isResource()) {
                 throw new IllegalArgumentException("Resources must be resources");
             }
-            this.requiredResources.add(resource);
         }
+        this.requiredResources = resources.clone();
     }
 
-    public OptionalInt build(final Collection<Effect> resources) {
-        if (!CollectionUtils.isEqualCollection(this.requiredResources, resources)) {
+    public OptionalInt build(final Effect[] resources) {
+        if (!Arrays.equals(this.requiredResources, resources)) {
             return OptionalInt.empty();
         }
 
