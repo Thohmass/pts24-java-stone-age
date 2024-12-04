@@ -22,8 +22,8 @@ public final class WaitingForToolUseState implements InterfaceGamePhaseState {
     }
 
     @Override
-    public ActionResult makeAction(final PlayerOrder player, final Location location,
-            final Effect[] inputResources, final Effect[] outputResources) {
+    public ActionResult makeAction(final PlayerOrder player, final Location location, final Effect[] inputResources,
+            final Effect[] outputResources) {
         return ActionResult.FAILURE;
     }
 

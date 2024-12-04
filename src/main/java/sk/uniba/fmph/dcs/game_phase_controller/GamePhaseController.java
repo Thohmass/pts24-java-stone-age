@@ -186,8 +186,8 @@ public final class GamePhaseController implements InterfaceGamePhaseController {
         }
     }
 
-    public boolean makeAction(final PlayerOrder player, final Location location,
-            final Effect[] inputResources, final Effect[] outputResources) {
+    public boolean makeAction(final PlayerOrder player, final Location location, final Effect[] inputResources,
+            final Effect[] outputResources) {
         if (!checkPlayersTurn(player)) {
             return false;
         }

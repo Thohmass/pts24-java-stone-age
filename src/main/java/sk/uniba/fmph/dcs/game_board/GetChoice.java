@@ -22,6 +22,7 @@ public class GetChoice implements EvaluateCivilisationCardImmediateEffect {
      *            - current player
      * @param choice
      *            - Effect that player want to choose
+     *
      * @return - True if the player got the effect, false otherwise
      */
 

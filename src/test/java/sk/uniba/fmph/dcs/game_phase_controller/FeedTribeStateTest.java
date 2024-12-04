@@ -70,7 +70,7 @@ public class FeedTribeStateTest {
 
         map.put(player1, new InterfaceFeedTribeTry(1, 1, false));
         map.put(player2, new InterfaceFeedTribeTry(1, 1, true));
-        Effect[] resources = new Effect[]{};
+        Effect[] resources = new Effect[] {};
 
         FeedTribeState feedState = new FeedTribeState(map);
 

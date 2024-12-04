@@ -42,7 +42,7 @@ public final class RewardMenu implements InterfaceTakeReward {
             return false;
         }
         menu = ArrayUtils.removeElement(menu, reward);
-        p.playerBoard().giveEffect(new Effect[] {reward});
+        p.playerBoard().giveEffect(new Effect[] { reward });
         return true;
     }
 

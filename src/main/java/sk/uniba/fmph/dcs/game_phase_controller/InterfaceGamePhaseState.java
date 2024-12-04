@@ -9,8 +9,7 @@ import sk.uniba.fmph.dcs.stone_age.Effect;
 public interface InterfaceGamePhaseState {
     ActionResult placeFigures(PlayerOrder player, Location location, int figuresCount);
 
-    ActionResult makeAction(PlayerOrder player, Location location, Effect[] inputResources,
-            Effect[] outputResources);
+    ActionResult makeAction(PlayerOrder player, Location location, Effect[] inputResources, Effect[] outputResources);
 
     ActionResult skipAction(PlayerOrder player, Location location);
 

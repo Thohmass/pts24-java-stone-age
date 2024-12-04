@@ -3,8 +3,7 @@ package sk.uniba.fmph.dcs.stone_age;
 public interface InterfaceStoneAgeGame {
     boolean placeFigures(int playerId, Location location, int figuresCount);
 
-    boolean makeAction(int playerId, Location location, Effect[] usedResources,
-            Effect[] desiredResources);
+    boolean makeAction(int playerId, Location location, Effect[] usedResources, Effect[] desiredResources);
 
     boolean skipAction(int playerId, Location location);
 

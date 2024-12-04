@@ -38,6 +38,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *            - where player want to place figure/s
      * @param figuresCount
      *            - number of figures
+     *
      * @return - this class is not responsible for this method
      */
     @Override
@@ -55,12 +56,13 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *            - resources that player want to spend
      * @param outputResources
      *            - resources that player acheive
+     *
      * @return - ActionResult of the action
      */
 
     @Override
-    public ActionResult makeAction(final PlayerOrder player, final Location location,
-            final Effect[] inputResources, final Effect[] outputResources) {
+    public ActionResult makeAction(final PlayerOrder player, final Location location, final Effect[] inputResources,
+            final Effect[] outputResources) {
         if ((this.places.containsKey(location)) && (this.places.get(location) != null)) {
             ActionResult actionResult = this.places.get(location).makeAction(player, inputResources, outputResources);
             places.remove(location);
@@ -75,6 +77,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *            - current player
      * @param location
      *            - location where player want to skip action
+     *
      * @return - ActionResult of skipping action
      */
 
@@ -93,6 +96,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *            - current player
      * @param toolIndex
      *            - index of the tool which player want to use
+     *
      * @return - this class is not responsible for this method
      */
 
@@ -105,6 +109,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *
      * @param player
      *            - current player
+     *
      * @return - this class is not responsible for this method
      */
 
@@ -119,6 +124,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *            - current player
      * @param resources
      *            - food that player want to feed his tribe with
+     *
      * @return - this class is not responsible for this method
      */
 
@@ -131,6 +137,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *
      * @param player
      *            - current player
+     *
      * @return - this class is not responsible for this method
      */
 
@@ -145,6 +152,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *            - current player
      * @param reward
      *            - reward that player want from action
+     *
      * @return - this class is not responsible for this method
      */
 
@@ -157,6 +165,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
      *
      * @param player
      *            - current player
+     *
      * @return - HasAction whether it is possible to make automatic action
      */
 

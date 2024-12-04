@@ -3,8 +3,7 @@ package sk.uniba.fmph.dcs.stone_age;
 public interface InterfaceGamePhaseController {
     boolean placeFigures(PlayerOrder player, Location location, int figuresCount);
 
-    boolean makeAction(PlayerOrder player, Location location, Effect[] inputResources,
-                       Effect[] outputResources);
+    boolean makeAction(PlayerOrder player, Location location, Effect[] inputResources, Effect[] outputResources);
 
     boolean skipAction(PlayerOrder player, Location location);
 
