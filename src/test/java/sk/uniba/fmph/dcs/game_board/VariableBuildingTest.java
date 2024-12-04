@@ -3,7 +3,6 @@ package sk.uniba.fmph.dcs.game_board;
 import org.junit.jupiter.api.Test;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import java.util.List;
 import java.util.OptionalInt;
 
 import static org.junit.jupiter.api.Assertions.*;
