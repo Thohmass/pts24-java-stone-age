@@ -1,21 +1,25 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import sk.uniba.fmph.dcs.stone_age.*;
+import sk.uniba.fmph.dcs.stone_age.Effect;
+import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.HasAction;
+import sk.uniba.fmph.dcs.stone_age.ActionResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.OptionalInt;
 
-public class BuildingTile implements InterFaceFigureLocationInternal{
+public final class BuildingTile implements InterFaceFigureLocationInternal {
     private final Building building;
     private final ArrayList<PlayerOrder> figures;
     private static final int MAX_FIGURES = 1;
 
-    public BuildingTile(Building building) {
+    public BuildingTile(final Building building) {
         this.building = building;
         this.figures = new ArrayList<>();
     }
 
     @Override
-    public boolean placeFigures(Player player, int figureCount) {
+    public boolean placeFigures(final Player player, final int figureCount) {
         if (figureCount > MAX_FIGURES || !figures.isEmpty()) {
             return false;
         }
@@ -27,7 +31,7 @@ public class BuildingTile implements InterFaceFigureLocationInternal{
     }
 
     @Override
-    public HasAction tryToPlaceFigures(Player player, int count) {
+    public HasAction tryToPlaceFigures(final Player player, final int count) {
         if (!figures.isEmpty() || count > MAX_FIGURES || !player.playerBoard().hasFigures(count)) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
@@ -35,7 +39,7 @@ public class BuildingTile implements InterFaceFigureLocationInternal{
     }
 
     @Override
-    public ActionResult makeAction(Player player, Effect[] inputResources, Effect[] outputResources) {
+    public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
         if (figures.isEmpty() || !figures.getFirst().equals(player.playerOrder())) {
             return ActionResult.FAILURE;
         }
@@ -49,7 +53,7 @@ public class BuildingTile implements InterFaceFigureLocationInternal{
     }
 
     @Override
-    public boolean skipAction(Player player) {
+    public boolean skipAction(final Player player) {
         if (figures.isEmpty() || !figures.getFirst().equals(player.playerOrder())) {
             return false;
         }
@@ -58,7 +62,7 @@ public class BuildingTile implements InterFaceFigureLocationInternal{
     }
 
     @Override
-    public HasAction tryToMakeAction(Player player) {
+    public HasAction tryToMakeAction(final Player player) {
         if (figures.isEmpty() || !figures.getFirst().equals(player.playerOrder())) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
@@ -72,9 +76,9 @@ public class BuildingTile implements InterFaceFigureLocationInternal{
     }
 
     public String state() {
-        return "Building: " +
-                building +
-                "\nFigures: " +
-                figures;
+        return "Building: "
+                + building
+                + "\nFigures: "
+                + figures;
     }
 }
