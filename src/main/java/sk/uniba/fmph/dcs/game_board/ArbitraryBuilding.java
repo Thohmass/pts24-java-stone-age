@@ -2,7 +2,6 @@ package sk.uniba.fmph.dcs.game_board;
 
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import java.util.Collection;
 import java.util.OptionalInt;
 
 public final class ArbitraryBuilding implements Building {
