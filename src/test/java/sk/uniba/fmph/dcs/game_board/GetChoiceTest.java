@@ -37,6 +37,11 @@ public class GetChoiceTest {
             }
 
             @Override
+            public boolean giveFigure() {
+                return false;
+            }
+
+            @Override
             public boolean takeFigures(int count) {
                 return false;
             }

@@ -22,6 +22,7 @@ public class GetSomethingFixed implements EvaluateCivilisationCardImmediateEffec
      *            - current player
      * @param choice
      *            - the choice is here irelevant
+     *
      * @return - true, player always get all the resources back
      */
 
