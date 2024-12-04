@@ -2,7 +2,7 @@ package sk.uniba.fmph.dcs.game_board;
 
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEffect{
+public final class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEffect {
 
     private final RewardMenu rewardMenu;
 
@@ -12,7 +12,7 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
 
 
     @Override
-    public Boolean performEffect(Player player, Effect choice) {
+    public Boolean performEffect(final Player player, final Effect choice) {
         if (!rewardMenu.takeReward(player.playerOrder(), choice)) {
             return false;
         }
