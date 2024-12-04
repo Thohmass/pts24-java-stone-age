@@ -96,6 +96,11 @@ public class BuildingTileTest {
     }
 
     @Test
+    public void testState() {
+        assertEquals("Building: TestBuilding\nFigures: []", buildingTile.state());
+    }
+    
+    @Test
     public void testPlaceFigures_Success() {
         // Act
         boolean result = buildingTile.placeFigures(player, 1);

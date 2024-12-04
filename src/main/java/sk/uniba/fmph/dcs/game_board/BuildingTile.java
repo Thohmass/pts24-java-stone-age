@@ -77,7 +77,7 @@ public final class BuildingTile implements InterFaceFigureLocationInternal {
 
     public String state() {
         return "Building: "
-                + building
+                + building.getClass().getSimpleName()
                 + "\nFigures: "
                 + figures;
     }
