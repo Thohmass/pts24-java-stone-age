@@ -2,19 +2,18 @@ package sk.uniba.fmph.dcs.game_board;
 
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import java.util.Collection;
 import java.util.OptionalInt;
 
 public final class ArbitraryBuilding implements Building {
-    private final int maxNumberOfResources = 7;
+    private final static int MAX_NUMBER_OF_RESOURCES = 7;
 
     public ArbitraryBuilding() {
     }
 
     @Override
-    public OptionalInt build(final Collection<Effect> resources) {
+    public OptionalInt build(final Effect[] resources) {
         // invalid move
-        if (resources.size() > maxNumberOfResources || resources.isEmpty()) {
+        if (resources.length > MAX_NUMBER_OF_RESOURCES || resources.length == 0) {
             return OptionalInt.empty();
         }
 

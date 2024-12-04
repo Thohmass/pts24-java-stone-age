@@ -23,14 +23,14 @@ public class VariableBuildingTest {
     public void itDoesNotBuildWithInvalidNumberOfResourcesOrResourceTypes() {
         Building building = new VariableBuilding(1, 1);
 
-        assertEquals(OptionalInt.empty(), building.build(List.of()));
-        assertEquals(OptionalInt.empty(), building.build(List.of(new Effect[] { Effect.WOOD, Effect.WOOD })));
+        assertEquals(OptionalInt.empty(), building.build(new Effect[] {}));
+        assertEquals(OptionalInt.empty(), building.build(new Effect[] { Effect.WOOD, Effect.WOOD }));
 
         Building building2 = new VariableBuilding(3, 2);
         assertEquals(OptionalInt.empty(),
-                building2.build(List.of(new Effect[] { Effect.CLAY, Effect.WOOD, Effect.STONE })));
+                building2.build(new Effect[] { Effect.CLAY, Effect.WOOD, Effect.STONE }));
         assertEquals(OptionalInt.empty(),
-                building2.build(List.of(new Effect[] { Effect.CLAY, Effect.CLAY, Effect.CLAY })));
+                building2.build(new Effect[] { Effect.CLAY, Effect.CLAY, Effect.CLAY }));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class VariableBuildingTest {
         Building building = new VariableBuilding(3, 2);
 
         assertEquals(OptionalInt.of(10),
-                building.build(List.of(new Effect[] { Effect.WOOD, Effect.CLAY, Effect.WOOD })));
+                building.build(new Effect[] { Effect.WOOD, Effect.CLAY, Effect.WOOD }));
 
     }
 }
