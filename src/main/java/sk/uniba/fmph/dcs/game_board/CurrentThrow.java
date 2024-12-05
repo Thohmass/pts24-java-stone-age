@@ -6,7 +6,7 @@ import sk.uniba.fmph.dcs.stone_age.InterfaceToolUse;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class CurrentThrow implements InterfaceToolUse {
+public final class CurrentThrow implements InterfaceToolUse {
 
     private Effect throwsFor;
     private int throwResult;
