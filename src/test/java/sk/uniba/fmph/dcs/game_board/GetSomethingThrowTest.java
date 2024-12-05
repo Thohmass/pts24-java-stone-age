@@ -65,20 +65,20 @@ public class GetSomethingThrowTest {
         player = new Player(new PlayerOrder(0, 0), iFace);
         resource = Effect.WOOD;
         choice = Effect.WOOD;
-        currentThrow = new CurrentThrow(Effect.WOOD, 2);
+        currentThrow = new CurrentThrow(Effect.WOOD);
         getSomethingThrow = new GetSomethingThrow(resource, currentThrow);
     }
 
     @Test
     public void performsEffect() {
         boolean result = getSomethingThrow.performEffect(player, choice);
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
     public void wrongResource() {
         choice = Effect.CLAY;
         boolean result = getSomethingThrow.performEffect(player, choice);
-        assertEquals(false, result);
+        assertFalse(result);
     }
 }
