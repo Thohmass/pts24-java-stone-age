@@ -10,12 +10,13 @@ public final class AllPlayersTakeReward implements EvaluateCivilisationCardImmed
         this.rewardMenu = rewardMenu;
     }
 
+
     @Override
     public Boolean performEffect(final Player player, final Effect choice) {
         if (!rewardMenu.takeReward(player.playerOrder(), choice)) {
             return false;
         }
-        player.playerBoard().giveEffect(new Effect[] { choice });
+        player.playerBoard().giveEffect(new Effect[]{choice});
         return true;
     }
 }

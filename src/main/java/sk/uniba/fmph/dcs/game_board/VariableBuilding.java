@@ -2,8 +2,8 @@ package sk.uniba.fmph.dcs.game_board;
 
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.OptionalInt;
 
 public final class VariableBuilding implements Building {
@@ -29,8 +29,8 @@ public final class VariableBuilding implements Building {
     }
 
     @Override
-    public OptionalInt build(final Collection<Effect> resources) {
-        if (resources.size() != numberOfResources || (new HashSet<>(resources)).size() != numberOfResourceTypes) {
+    public OptionalInt build(final Effect[] resources) {
+        if (resources.length != numberOfResources || (new HashSet<>(List.of(resources))).size() != numberOfResourceTypes) {
             return OptionalInt.empty();
         }
 

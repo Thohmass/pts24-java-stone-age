@@ -2,7 +2,6 @@ package sk.uniba.fmph.dcs.game_board;
 
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import java.util.Collection;
 import java.util.OptionalInt;
 
 public final class ArbitraryBuilding implements Building {
@@ -12,9 +11,9 @@ public final class ArbitraryBuilding implements Building {
     }
 
     @Override
-    public OptionalInt build(final Collection<Effect> resources) {
+    public OptionalInt build(final Effect[] resources) {
         // invalid move
-        if (resources.size() > maxNumberOfResources || resources.isEmpty()) {
+        if (resources.length > maxNumberOfResources || resources.length == 0) {
             return OptionalInt.empty();
         }
 

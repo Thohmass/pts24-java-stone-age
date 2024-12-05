@@ -1,6 +1,5 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import sk.uniba.fmph.dcs.stone_age.Building;
 import sk.uniba.fmph.dcs.stone_age.InterfaceGetState;
 
 public final class GameBoard implements InterfaceGetState {
