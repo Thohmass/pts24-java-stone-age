@@ -45,6 +45,11 @@ public class BuildingTileTest {
         }
 
         @Override
+        public boolean giveFigure() {
+            return true;
+        }
+
+        @Override
         public boolean takeFigures(int count) {
             takeFiguresCalled = true;
             return true;
