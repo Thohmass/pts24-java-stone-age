@@ -1,6 +1,10 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import sk.uniba.fmph.dcs.stone_age.*;
+import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
+import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.HasAction;
+import sk.uniba.fmph.dcs.stone_age.ActionResult;
+import sk.uniba.fmph.dcs.stone_age.Effect;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -38,8 +42,8 @@ public final class CivilisationCardPlace implements InterFaceFigureLocationInter
 
     @Override
     public boolean placeFigures(final Player player, final int figureCount) {
-        if (figureCount != MAX_FIGURES || !player.playerBoard().hasFigures(figureCount) ||
-                figures.length >= MAX_FIGURES) {
+        if (figureCount != MAX_FIGURES || !player.playerBoard().hasFigures(figureCount)
+                || figures.length >= MAX_FIGURES) {
             return false;
         }
         figures = new PlayerOrder[]{player.playerOrder()};
@@ -48,8 +52,8 @@ public final class CivilisationCardPlace implements InterFaceFigureLocationInter
 
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
-        if (count != MAX_FIGURES || !player.playerBoard().hasFigures(count) ||
-                figures.length >= MAX_FIGURES) {
+        if (count != MAX_FIGURES || !player.playerBoard().hasFigures(count)
+                || figures.length >= MAX_FIGURES) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
         return HasAction.NO_ACTION_POSSIBLE;

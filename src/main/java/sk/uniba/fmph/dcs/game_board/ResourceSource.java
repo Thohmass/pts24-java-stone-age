@@ -8,7 +8,7 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public final class ResourceSource implements InterFaceFigureLocationInternal{
+public final class ResourceSource implements InterFaceFigureLocationInternal {
 
     private final String name;
     private final Effect resource;
