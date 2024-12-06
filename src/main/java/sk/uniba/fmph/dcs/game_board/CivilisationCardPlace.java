@@ -9,7 +9,7 @@ import sk.uniba.fmph.dcs.stone_age.Effect;
 import java.util.Arrays;
 import java.util.Optional;
 
-public final class CivilisationCardPlace implements InterFaceFigureLocationInternal {
+public final class CivilisationCardPlace implements InterfaceFigureLocationInternal {
 
     private final int requiredResources;
     private Optional<CivilisationCard> optionalCivilisationCard;
@@ -20,17 +20,12 @@ public final class CivilisationCardPlace implements InterFaceFigureLocationInter
     private static final int MAX_REQUIRED_RESOURCES = 4;
 
     public CivilisationCardPlace(final int requiredResources, final CivilisationCardDeck civilisationCardDeck,
-                                 final GameBoard gameBoard) {
+                                 final Optional<CivilisationCard> civilisationCard,
+                                 final CivilisationCardPlace civilisationCardPlace) {
         this.requiredResources = requiredResources;
         this.civilisationCardDeck = civilisationCardDeck;
-
-        if (requiredResources >= 1) {
-            nextCivilisationCardPlace = new CivilisationCardPlace(requiredResources - 1,
-                    civilisationCardDeck, gameBoard);
-        } else {
-            nextCivilisationCardPlace = null;
-        }
-        this.optionalCivilisationCard = civilisationCardDeck.getTop();
+        this.optionalCivilisationCard = civilisationCard;
+        this.nextCivilisationCardPlace = civilisationCardPlace;
     }
 
     public String state() {

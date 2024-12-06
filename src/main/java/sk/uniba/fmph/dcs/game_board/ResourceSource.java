@@ -6,22 +6,25 @@ import sk.uniba.fmph.dcs.stone_age.HasAction;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
-public final class ResourceSource implements InterFaceFigureLocationInternal {
+public final class ResourceSource implements InterfaceFigureLocationInternal {
 
     private final String name;
     private final Effect resource;
     private final int maxFigures;
     private final int maxFigureColours;
     private final ArrayList<PlayerOrder> figures;
-    private CurrentThrow currentThrow;
+    private final CurrentThrow currentThrow;
 
-    public ResourceSource(final String name, final Effect resource, final int maxFigures, final int maxFigureColours) {
+    public ResourceSource(final String name, final Effect resource, final int maxFigures, final int maxFigureColours,
+                          final CurrentThrow currentThrow) {
         this.name = name;
         this.resource = resource;
         this.maxFigures = maxFigures;
         this.maxFigureColours = maxFigureColours;
+        this.currentThrow = currentThrow;
         figures = new ArrayList<>();
     }
 
@@ -55,15 +58,14 @@ public final class ResourceSource implements InterFaceFigureLocationInternal {
         if (figureCount <= 0) {
             return ActionResult.FAILURE;
         }
-        if (currentThrow == null) {
-            currentThrow = new CurrentThrow(resource);
-            currentThrow.initiate(player, resource, figureCount);
-            if (currentThrow.canUseTools()) {
-                return ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE;
-            }
+        currentThrow.initiate(player, resource, figureCount);
+        if (currentThrow.canUseTools()) {
+            return ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE;
         }
-        // TODO Tool Use
-        player.playerBoard().giveEffect(outputResources);
+        int quantity = Math.floorDiv(currentThrow.getThrowResult(), resource.points());
+        Effect[] reward = new Effect[quantity];
+        Arrays.fill(reward, resource);
+        player.playerBoard().giveEffect(reward);
         for (int i = 0; i < figureCount; i++) {
             player.playerBoard().giveFigure();
             figures.remove(player.playerOrder());

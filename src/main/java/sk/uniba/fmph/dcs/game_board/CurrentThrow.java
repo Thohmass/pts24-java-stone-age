@@ -11,10 +11,12 @@ public final class CurrentThrow implements InterfaceToolUse {
     private Effect throwsFor;
     private int throwResult;
     private Player player;
+    private boolean finishedUsingTools;
 
     public CurrentThrow(final Effect throwsFor) {
         this.throwsFor = throwsFor;
         this.throwResult = 0;
+        finishedUsingTools = false;
         player = null;
     }
 
@@ -22,10 +24,11 @@ public final class CurrentThrow implements InterfaceToolUse {
         this.player = player;
         throwsFor = effect;
         throwResult = Arrays.stream(new Throw().throwDice(dices)).sum();
+        finishedUsingTools = false;
     }
 
     public String state() {
-        return "";
+        return "Player: " + player.toString();
     }
 
     @Override
@@ -41,15 +44,16 @@ public final class CurrentThrow implements InterfaceToolUse {
     @Override
     public boolean canUseTools() {
         int goal = throwResult % throwsFor.points();
-        return player.playerBoard().hasSufficientTools(goal);
+        return player.playerBoard().hasSufficientTools(goal) && finishedUsingTools;
     }
 
     @Override
     public boolean finishUsingTools() {
-        int quantity = Math.floorDiv(throwResult, throwsFor.points());
-        Effect[] reward = new Effect[quantity];
-        Arrays.fill(reward, throwsFor);
-        player.playerBoard().giveEffect(reward);
+        finishedUsingTools = true;
         return true;
+    }
+
+    public int getThrowResult() {
+        return throwResult;
     }
 }
