@@ -13,8 +13,8 @@ public final class RewardMenu implements InterfaceTakeReward {
     private Effect[] menu;
     private final Player[] players;
 
-    public RewardMenu(final Effect[] menu, final Player[] players) {
-        this.menu = menu;
+    public RewardMenu(final Player[] players) {
+        this.menu = new Effect[0];
         this.players = players;
     }
 

@@ -4,7 +4,7 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
-public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInternal {
+public final class PlaceOnToolMakerAdaptor implements InterfaceFigureLocationInternal {
     private final ToolMakerHutFields tools;
 
     public PlaceOnToolMakerAdaptor(final ToolMakerHutFields tools) {
