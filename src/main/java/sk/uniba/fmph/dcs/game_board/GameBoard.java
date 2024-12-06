@@ -77,7 +77,7 @@ public final class GameBoard implements InterfaceGetState {
         locations.put(Location.BUILDING_TILE4, new BuildingTile(buildings4));
     }
 
-    public InterfaceFigureLocationInternal getLocation(Location location) {
+    public InterfaceFigureLocationInternal getLocation(final Location location) {
         return locations.get(location);
     }
 
