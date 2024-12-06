@@ -8,9 +8,11 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 public final class ResourceSource implements InterfaceFigureLocationInternal {
 
+    private int resourcesRemaining;
     private final String name;
     private final Effect resource;
     private final int maxFigures;
@@ -30,10 +32,7 @@ public final class ResourceSource implements InterfaceFigureLocationInternal {
 
     @Override
     public boolean placeFigures(final Player player, final int figureCount) {
-        if (!player.playerBoard().hasFigures(figureCount)) {
-            return false;
-        }
-        if (figures.size() + figureCount > maxFigures) {
+        if (tryToPlaceFigures(player, figureCount) == HasAction.NO_ACTION_POSSIBLE) {
             return false;
         }
         player.playerBoard().takeFigures(figureCount);
@@ -46,18 +45,24 @@ public final class ResourceSource implements InterfaceFigureLocationInternal {
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
         if (!player.playerBoard().hasFigures(count) || figures.size() + count > maxFigures
-                || figures.contains(player.playerOrder())) {
+                || figures.contains(player.playerOrder()) || figureColours() >= maxFigureColours) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
         return HasAction.WAITING_FOR_PLAYER_ACTION;
     }
 
+    private int figureColours() {
+        HashSet<PlayerOrder> set = new HashSet<>(figures);
+        return set.size();
+    }
+
     @Override
     public ActionResult makeAction(final Player player, final Effect[] inputResources, final Effect[] outputResources) {
-        int figureCount = Collections.frequency(figures, player.playerOrder());
-        if (figureCount <= 0) {
+        if (tryToMakeAction(player) == HasAction.NO_ACTION_POSSIBLE) {
             return ActionResult.FAILURE;
         }
+        int figureCount = Collections.frequency(figures, player.playerOrder());
+        // TODO - figure out current throw mechanic
         currentThrow.initiate(player, resource, figureCount);
         if (currentThrow.canUseTools()) {
             return ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE;
@@ -87,8 +92,8 @@ public final class ResourceSource implements InterfaceFigureLocationInternal {
 
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        if (!player.playerBoard().hasFigures(1) || figures.contains(player.playerOrder())
-                || figures.size() >= maxFigures) {
+        int playerFiguresHere = Collections.frequency(figures, player.playerOrder());
+        if (playerFiguresHere <= 0) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
         return HasAction.WAITING_FOR_PLAYER_ACTION;

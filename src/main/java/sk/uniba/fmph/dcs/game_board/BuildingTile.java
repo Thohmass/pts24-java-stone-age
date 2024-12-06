@@ -7,7 +7,6 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 
 import java.util.ArrayList;
 import java.util.OptionalInt;
-import java.util.Queue;
 import java.util.Stack;
 
 public final class BuildingTile implements InterfaceFigureLocationInternal {
