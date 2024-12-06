@@ -9,10 +9,10 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import java.util.List;
 
 public final class FigureLocationAdaptor implements InterfaceFigureLocation {
-    private final InterFaceFigureLocationInternal figureLocationInternal;
+    private final InterfaceFigureLocationInternal figureLocationInternal;
     private final List<Player> players;
 
-    public FigureLocationAdaptor(final InterFaceFigureLocationInternal figureLocationInternal,
+    public FigureLocationAdaptor(final InterfaceFigureLocationInternal figureLocationInternal,
             final List<Player> players) {
         this.figureLocationInternal = figureLocationInternal;
         this.players = players;
