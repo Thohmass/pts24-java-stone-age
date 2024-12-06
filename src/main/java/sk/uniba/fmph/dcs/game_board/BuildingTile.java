@@ -7,14 +7,19 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 
 import java.util.ArrayList;
 import java.util.OptionalInt;
+import java.util.Queue;
+import java.util.Stack;
 
-public final class BuildingTile implements InterFaceFigureLocationInternal {
-    private final Building building;
+public final class BuildingTile implements InterfaceFigureLocationInternal {
+    private Building building;
+    private final Stack<Building> buildings;
     private final ArrayList<PlayerOrder> figures;
     private static final int MAX_FIGURES = 1;
 
-    public BuildingTile(final Building building) {
-        this.building = building;
+    public BuildingTile(final Stack<Building> buildings) {
+        this.buildings = new Stack<>();
+        this.buildings.addAll(buildings);
+        building = this.buildings.pop();
         this.figures = new ArrayList<>();
     }
 
@@ -49,6 +54,9 @@ public final class BuildingTile implements InterFaceFigureLocationInternal {
         }
         player.playerBoard().giveEffect(outputResources);
         player.playerBoard().giveEffect(new Effect[]{Effect.BUILDING});
+        if (!buildings.isEmpty()) {
+            building = buildings.pop();
+        }
         return ActionResult.ACTION_DONE;
     }
 

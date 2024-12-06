@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import sk.uniba.fmph.dcs.stone_age.*;
 
 import java.util.OptionalInt;
+import java.util.Stack;
 
 public class BuildingTileTest {
     // Test doubles
@@ -97,7 +98,9 @@ public class BuildingTileTest {
         player = new Player(new PlayerOrder(0, 2), testPlayerBoard);
 
         // Create BuildingTile with test building
-        buildingTile = new BuildingTile(testBuilding);
+        Stack<Building> buildings = new Stack<>();
+        buildings.add(testBuilding);
+        buildingTile = new BuildingTile(buildings);
     }
 
     @Test

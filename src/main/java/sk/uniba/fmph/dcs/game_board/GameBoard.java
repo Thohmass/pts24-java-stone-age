@@ -3,11 +3,11 @@ package sk.uniba.fmph.dcs.game_board;
 import sk.uniba.fmph.dcs.stone_age.InterfaceGetState;
 import sk.uniba.fmph.dcs.stone_age.Location;
 import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.Building;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public final class GameBoard implements InterfaceGetState {
 
@@ -21,7 +21,7 @@ public final class GameBoard implements InterfaceGetState {
     private static final int REQUIRED_RESOURCES_CARD3 = 2;
     private static final int REQUIRED_RESOURCES_CARD2 = 3;
     private static final int REQUIRED_RESOURCES_CARD1 = 4;
-    private static final int NUMBER_BUILDING_TILES = 4;
+    private static final int NUMBER_OF_BUILDING_TILES = 4;
 
     public GameBoard(final CivilisationCardDeck deck, final ArrayList<Building> buildings,
                      final Player[] players, final int desiredResultThrow) {
@@ -58,23 +58,23 @@ public final class GameBoard implements InterfaceGetState {
         locations.put(Location.CIVILISATION_CARD2, card2);
         locations.put(Location.CIVILISATION_CARD1, card1);
 
-        ArrayList<Building> buildings1 = new ArrayList<>();
-        ArrayList<Building> buildings2 = new ArrayList<>();
-        ArrayList<Building> buildings3 = new ArrayList<>();
-        ArrayList<Building> buildings4 = new ArrayList<>();
+        Stack<Building> buildings1 = new Stack<>();
+        Stack<Building> buildings2 = new Stack<>();
+        Stack<Building> buildings3 = new Stack<>();
+        Stack<Building> buildings4 = new Stack<>();
         for (int i = 0; i < buildings.size(); i++) {
-            switch (i % NUMBER_BUILDING_TILES) {
+            switch (i % NUMBER_OF_BUILDING_TILES) {
                 case 0 -> buildings1.add(buildings.get(i));
                 case 1 -> buildings2.add(buildings.get(i));
                 case 2 -> buildings3.add(buildings.get(i));
-                case NUMBER_BUILDING_TILES - 1 -> buildings4.add(buildings.get(i));
+                case NUMBER_OF_BUILDING_TILES - 1 -> buildings4.add(buildings.get(i));
                 default -> { }
             }
         }
-//        locations.put(Location.BUILDING_TILE1, new BuildingTile(buildings1));
-//        locations.put(Location.BUILDING_TILE2, new BuildingTile(buildings2));
-//        locations.put(Location.BUILDING_TILE3, new BuildingTile(buildings3));
-//        locations.put(Location.BUILDING_TILE4, new BuildingTile(buildings4));
+        locations.put(Location.BUILDING_TILE1, new BuildingTile(buildings1));
+        locations.put(Location.BUILDING_TILE2, new BuildingTile(buildings2));
+        locations.put(Location.BUILDING_TILE3, new BuildingTile(buildings3));
+        locations.put(Location.BUILDING_TILE4, new BuildingTile(buildings4));
     }
 
     @Override
