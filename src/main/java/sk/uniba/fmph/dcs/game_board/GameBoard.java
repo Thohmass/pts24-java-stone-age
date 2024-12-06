@@ -1,6 +1,8 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import sk.uniba.fmph.dcs.stone_age.*;
+import sk.uniba.fmph.dcs.stone_age.InterfaceGetState;
+import sk.uniba.fmph.dcs.stone_age.Location;
+import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.Building;
 
 import java.util.ArrayList;
