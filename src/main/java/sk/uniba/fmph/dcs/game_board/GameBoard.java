@@ -24,7 +24,7 @@ public final class GameBoard implements InterfaceGetState {
     private static final int NUMBER_OF_BUILDING_TILES = 4;
 
     public GameBoard(final CivilisationCardDeck deck, final ArrayList<Building> buildings,
-                     final Player[] players, final int desiredResultThrow) {
+                     final Player[] players) {
         this.deck = deck;
         this.players = players.clone();
         currentThrow = new CurrentThrow(Effect.WOOD);
@@ -79,6 +79,12 @@ public final class GameBoard implements InterfaceGetState {
 
     public InterfaceFigureLocationInternal getLocation(final Location location) {
         return locations.get(location);
+    }
+    public Player[] getPlayers() {
+        return players;
+    }
+    public CurrentThrow getCurrentThrow() {
+        return currentThrow;
     }
 
     @Override

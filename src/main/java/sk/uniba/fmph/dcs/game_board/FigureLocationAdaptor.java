@@ -10,12 +10,12 @@ import java.util.List;
 
 public final class FigureLocationAdaptor implements InterfaceFigureLocation {
     private final InterfaceFigureLocationInternal figureLocationInternal;
-    private final List<Player> players;
+    private final Player[] players;
 
     public FigureLocationAdaptor(final InterfaceFigureLocationInternal figureLocationInternal,
-            final List<Player> players) {
+            final Player[] players) {
         this.figureLocationInternal = figureLocationInternal;
-        this.players = players;
+        this.players = players.clone();
     }
 
     @Override

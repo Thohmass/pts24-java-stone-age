@@ -12,11 +12,14 @@ import java.util.Optional;
 public final class PlayerBoardGameBoardFacade
         implements InterfacePlayerBoardGameBoard, InterfaceNewTurn, InterfaceFeedTribe {
     private final PlayerBoard playerBoard;
-
     private final int notFedPenalty = -10;
 
     public PlayerBoardGameBoardFacade(final PlayerBoard playerBoard) {
         this.playerBoard = playerBoard;
+    }
+
+    public PlayerBoard getPlayerBoard() {
+        return playerBoard;
     }
 
     @Override
