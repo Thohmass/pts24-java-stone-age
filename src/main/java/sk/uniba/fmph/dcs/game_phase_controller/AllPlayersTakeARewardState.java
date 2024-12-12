@@ -15,6 +15,10 @@ public final class AllPlayersTakeARewardState implements InterfaceGamePhaseState
         this.interfaceTakeReward = interfaceTakeReward;
     }
 
+    public InterfaceTakeReward getRewardMenu() {
+        return interfaceTakeReward;
+    }
+
     @Override
     public ActionResult placeFigures(final PlayerOrder player, final Location location, final int figuresCount) {
         return ActionResult.FAILURE;

@@ -4,12 +4,13 @@ import sk.uniba.fmph.dcs.game_board.*;
 import sk.uniba.fmph.dcs.game_phase_controller.*;
 import sk.uniba.fmph.dcs.player_board.PlayerBoardGameBoardFacade;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class StoneAgeGameFactory {
 
-    public static StoneAgeGame createStoneAgeGame(final int numberOfPlayers) {
+    public static StoneAgeGame createStoneAgeGame(final int numberOfPlayers) throws IOException {
         GameBoard gameBoard = GameBoardFactory.createGameBoard(numberOfPlayers);
 
         Map<Integer, PlayerOrder> playerOrderMap = new HashMap<>();

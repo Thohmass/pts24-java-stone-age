@@ -44,7 +44,7 @@ public final class ResourceSource implements InterfaceFigureLocationInternal {
 
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
-        if (!player.playerBoard().hasFigures(count) || figures.size() + count > maxFigures
+        if (count <= 0 || !player.playerBoard().hasFigures(count) || figures.size() + count > maxFigures
                 || figures.contains(player.playerOrder()) || figureColours() >= maxFigureColours) {
             return HasAction.NO_ACTION_POSSIBLE;
         }

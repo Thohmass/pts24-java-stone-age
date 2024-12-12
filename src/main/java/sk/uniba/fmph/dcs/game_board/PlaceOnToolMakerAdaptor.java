@@ -22,9 +22,9 @@ public final class PlaceOnToolMakerAdaptor implements InterfaceFigureLocationInt
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
         if (count == 1 && player.playerBoard().hasFigures(count) && tools.canPlaceOnToolMaker(player)) {
-            return HasAction.NO_ACTION_POSSIBLE;
+            return HasAction.WAITING_FOR_PLAYER_ACTION;
         }
-        return HasAction.WAITING_FOR_PLAYER_ACTION;
+        return HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override

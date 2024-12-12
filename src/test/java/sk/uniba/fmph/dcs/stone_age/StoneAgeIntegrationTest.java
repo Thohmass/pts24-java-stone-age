@@ -1,27 +1,31 @@
 package sk.uniba.fmph.dcs.stone_age;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import sk.uniba.fmph.dcs.game_board.GameBoard;
-import sk.uniba.fmph.dcs.game_board.GameBoardFactory;
-import sk.uniba.fmph.dcs.game_phase_controller.GamePhaseController;
-import sk.uniba.fmph.dcs.game_phase_controller.GamePhase;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
 public class StoneAgeIntegrationTest {
     private StoneAgeGame game;
-    private GameBoard gameBoard;
     private Map<Integer, PlayerOrder> players;
 
-    @BeforeEach
-    void setUp() {
-        // Set up a 4-player game
-        int numberOfPlayers = 4;
-        gameBoard = GameBoardFactory.createGameBoard(numberOfPlayers);
+
+    // It is so hard to make these tests when some things just aint working___
+    //
+    // DISCLAIMER: These tests are form the game mechanics correct, but the game is returning wrong answers,
+    // unfortunately
+    //
+    // That is why there is assertTrue or assertFalse on almost all game calls - to see, where the game is not working
+    // the way it should
+
+
+    void setUp(final int numberOfPlayers) throws IOException {
+        // Set up a game with a specified number of players
         game = StoneAgeGameFactory.createStoneAgeGame(numberOfPlayers);
 
         // Prepare player orders
@@ -31,8 +35,18 @@ public class StoneAgeIntegrationTest {
         }
     }
 
-    @Test
-    void testPlacingFiguresOnLocations() {
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testPlacingZeroFigures(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+        assertFalse(game.placeFigures(0, Location.FOREST, 0));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testPlacingFiguresOnResourceSources(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
         // Test placing figures on different locations
         assertTrue(game.placeFigures(0, Location.FOREST, 2),
                 "Player should be able to place 2 figures on the forest");
@@ -40,44 +54,107 @@ public class StoneAgeIntegrationTest {
         assertTrue(game.placeFigures(1, Location.CLAY_MOUND, 1),
                 "Player should be able to place 1 figure on the clay mound");
 
-        assertTrue(game.placeFigures(2, Location.HUNTING_GROUNDS, 3),
-                "Player should be able to place 3 figures on hunting grounds");
+        if (numberOfPlayers > 2) {
+            assertTrue(game.placeFigures(2, Location.CLAY_MOUND, 3),
+                    "Player should be able to place 3 figures on clay mound");
+        }
+        if (numberOfPlayers > 3) {
+            assertTrue(game.placeFigures(3, Location.CLAY_MOUND, 3),
+                    "Player should be able to place 5 figures on the clay mound");
+        }
+
+        assertFalse(game.placeFigures(0, Location.CLAY_MOUND, 2),
+                "Player should NOT be able to place 2 figures on the clay mound");
+
+        assertFalse(game.placeFigures(0, Location.FOREST, 1),
+                "Player should NOT be able to place figures on the forest again");
     }
 
-    @Test
-    void testMakingActionOnResourceLocations() {
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testToolMakerHutFields(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
+        assertFalse(game.placeFigures(0, Location.TOOL_MAKER, 2),
+                "Player should NOT be able to place 2 or more figures on the tool maker");
+        assertTrue(game.placeFigures(0, Location.TOOL_MAKER, 1),
+                "Player should be able to place 1 figure on the tool maker");
+        assertFalse(game.placeFigures(1, Location.TOOL_MAKER, 1),
+                "Player should not be able to place a figure on the tool maker if it is occupied");
+        assertFalse(game.placeFigures(1, Location.HUT, 1),
+                "Player should be NOT able to place 1 figure on the Hut");
+        assertTrue(game.placeFigures(1, Location.HUT, 2),
+                "Player should be able to place 2 figures on the Hut");
+        if (numberOfPlayers == 3) {
+            assertFalse(game.placeFigures(2, Location.FIELD, 1),
+                    "Player should not be able to place figure on fields if it is the last one unoccupied" +
+                            "from Fields, Tool maker and Hut in the game of three players");
+        }
+        if (numberOfPlayers == 4) {
+            assertTrue(game.placeFigures(2, Location.FIELD, 1),
+                    "Player should be able to place a figure on unoccupied Fields in game of four players");
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testFeedingTribe(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
         // First, place figures
-        game.placeFigures(0, Location.FOREST, 2);
-        game.placeFigures(1, Location.CLAY_MOUND, 1);
+        assertTrue(game.placeFigures(0, Location.FOREST, 5));
+        assertTrue(game.placeFigures(1, Location.CLAY_MOUND, 5));
+        assertTrue(game.placeFigures(2, Location.QUARRY, 5));
+        assertTrue(game.placeFigures(3, Location.RIVER, 5));
 
-        // Then try to make actions
-        Effect[] noInputResources = new Effect[0];
-        Effect[] woodResources = new Effect[]{Effect.WOOD};
+        // Automatic actions will reward all players with resources from their resource sources.
+        // Then feeding phase begins
 
-        assertTrue(game.makeAction(0, Location.FOREST, noInputResources, woodResources),
+        Effect[] food = new Effect[]{Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD};
+        assertFalse(game.feedTribe(0, new Effect[0]), "Player should NOT be able to feed the tribe" +
+                "without using any resources");
+        assertTrue(game.feedTribe(0, food),
+                "First player should be able to feed their tribe with 5 food and have 7 food remaining");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testMakingActionOnResourceLocations(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
+        // First, place figures
+        assertTrue(game.placeFigures(0, Location.FOREST, 4));
+        assertTrue(game.placeFigures(1, Location.CLAY_MOUND, 5));
+        if (numberOfPlayers >= 3) {
+            assertTrue(game.placeFigures(2, Location.QUARRY, 5));
+        }
+        if (numberOfPlayers >= 4) {
+            assertTrue(game.placeFigures(3, Location.RIVER, 5));
+        }
+        assertTrue(game.placeFigures(0, Location.HUNTING_GROUNDS, 1));
+
+        assertTrue(game.makeAction(0, Location.FOREST, new Effect[0], new Effect[]{Effect.WOOD}),
                 "Player should be able to collect wood from forest");
-
-        assertTrue(game.makeAction(1, Location.CLAY_MOUND, noInputResources, new Effect[]{Effect.CLAY}),
-                "Player should be able to collect clay from clay mound");
     }
 
-    @Test
-    void testFeedingTribe() {
-        // Test feeding tribe with various resources
-        Effect[] foodResources = new Effect[]{Effect.FOOD, Effect.FOOD};
-        assertTrue(game.feedTribe(0, foodResources),
-                "Player should be able to feed tribe with food");
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testToolUsage(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
 
-        // Test not feeding tribe
-        assertTrue(game.doNotFeedThisTurn(1),
-                "Player should be able to choose not to feed tribe");
-    }
-
-    @Test
-    void testToolUsage() {
         // Simulate placing figures and making an action first
-        game.placeFigures(0, Location.FOREST, 2);
-        game.makeAction(0, Location.FOREST, new Effect[0], new Effect[]{Effect.WOOD});
+        game.placeFigures(0, Location.TOOL_MAKER, 1);
+        game.placeFigures(1, Location.HUNTING_GROUNDS, 5);
+        if (numberOfPlayers >= 3) {
+            assertTrue(game.placeFigures(2, Location.QUARRY, 5));
+        }
+        if (numberOfPlayers >= 4) {
+            assertTrue(game.placeFigures(3, Location.RIVER, 5));
+        }
+        game.placeFigures(0, Location.HUNTING_GROUNDS, 4);
+
+        game.makeAction(0, Location.TOOL_MAKER, new Effect[0], new Effect[0]);
+        game.makeAction(0, Location.HUNTING_GROUNDS, new Effect[0], new Effect[]{Effect.FOOD});
 
         // Use a tool
         assertTrue(game.useTools(0, 0),
@@ -88,40 +165,119 @@ public class StoneAgeIntegrationTest {
                 "Player should be able to finish using tools");
     }
 
-    @Test
-    void testCivilisationCardAcquisition() {
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testFieldsWithFeeding(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
+        assertTrue(game.placeFigures(0, Location.FIELD, 1));
+        assertTrue(game.placeFigures(1, Location.HUNTING_GROUNDS, 5));
+        if (numberOfPlayers >= 3) {
+            assertTrue(game.placeFigures(2, Location.QUARRY, 5));
+        }
+        if (numberOfPlayers >= 4) {
+            assertTrue(game.placeFigures(3, Location.RIVER, 5));
+        }
+        assertTrue(game.placeFigures(0, Location.HUNTING_GROUNDS, 4));
+
+        assertTrue(game.makeAction(0, Location.FIELD, new Effect[0], new Effect[0]),
+                "Player should be able to collect reward from fields");
+        assertFalse(game.makeAction(0, Location.FIELD, new Effect[0], new Effect[0]),
+                "Player should NOT be able to collect reward from fields more than once per round");
+
+        // The rest of the actions should be done automatically
+
+        assertTrue(game.feedTribe(0, new Effect[]{Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD}),
+                "Player should be able to pay for feeding their tribe with four food now");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testCivilisationCardAcquisition(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
         // Place figures on civilisation card locations
-        game.placeFigures(0, Location.CIVILISATION_CARD1, 1);
-        game.placeFigures(1, Location.CIVILISATION_CARD2, 1);
+        assertTrue(game.placeFigures(0, Location.CIVILISATION_CARD4, 1));
+        assertFalse(game.placeFigures(1, Location.CIVILISATION_CARD4, 1),
+                "Player should NOT be able to place figure on a civilisation card that already has a figure on it");
+        assertTrue(game.placeFigures(1, Location.HUNTING_GROUNDS, 5));
+        if (numberOfPlayers >= 3) {
+            assertTrue(game.placeFigures(2, Location.QUARRY, 5));
+        }
+        if (numberOfPlayers >= 4) {
+            assertTrue(game.placeFigures(3, Location.RIVER, 5));
+        }
+        assertTrue(game.placeFigures(0, Location.FOREST, 3));
+        assertTrue(game.placeFigures(0, Location.HUNTING_GROUNDS, 1));
 
-        // Attempt to acquire civilisation cards with required resources
-        Effect[] requiredResourcesCard1 = new Effect[]{Effect.WOOD};
-        Effect[] requiredResourcesCard2 = new Effect[]{Effect.WOOD, Effect.CLAY};
 
-        assertTrue(game.makeAction(0, Location.CIVILISATION_CARD1, requiredResourcesCard1, new Effect[0]),
-                "Player should be able to acquire first civilisation card");
+        assertTrue(game.makeAction(0, Location.FOREST, new Effect[0], new Effect[0]));
 
-        assertTrue(game.makeAction(1, Location.CIVILISATION_CARD2, requiredResourcesCard2, new Effect[0]),
-                "Player should be able to acquire second civilisation card");
+        // Attempt to acquire civilisation cards with required resources that the player collected right before
+        Effect[] requiredResourcesCard4 = new Effect[]{Effect.WOOD};
+
+        assertFalse(game.makeAction(0, Location.CIVILISATION_CARD4, new Effect[0], new Effect[0]),
+                "Player should NOT be able to acquire fourth civilisation card by paying 0 resources");
+
+        assertTrue(game.makeAction(0, Location.CIVILISATION_CARD4, requiredResourcesCard4, new Effect[0]),
+                "Player should be able to acquire fourth civilisation card");
+
+        assertFalse(game.makeAction(0, Location.CIVILISATION_CARD4, requiredResourcesCard4, new Effect[0]),
+                "Player should NOT be able to acquire fourth civilisation card after he already acquired it");
     }
 
-    @Test
-    void testRewardChoice() {
-        // Simulate a reward choice scenario
-        assertTrue(game.makeAllPlayerTakeARewardChoice(0, Effect.WOOD),
-                "Player should be able to make a reward choice");
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testBuildingTilesAcquisition(int numberOfPlayers) throws IOException {
+        setUp(numberOfPlayers);
+
+        assertFalse(game.placeFigures(0, Location.BUILDING_TILE1, 2));
+        assertTrue(game.placeFigures(0, Location.BUILDING_TILE1, 1));
+        assertFalse(game.placeFigures(1, Location.BUILDING_TILE1, 1));
+        assertTrue(game.placeFigures(1, Location.HUNTING_GROUNDS, 5));
+        if (numberOfPlayers >= 3) {
+            assertTrue(game.placeFigures(2, Location.QUARRY, 5));
+        }
+        if (numberOfPlayers >= 4) {
+            assertTrue(game.placeFigures(3, Location.RIVER, 5));
+        }
+        assertTrue(game.placeFigures(0, Location.FOREST, 4));
+
+        assertFalse(game.makeAction(0, Location.BUILDING_TILE1, new Effect[0], new Effect[0]),
+                "Player should NOT be able to buy a building without paying any resources");
+        assertTrue(game.makeAction(0, Location.BUILDING_TILE1, new Effect[]{Effect.WOOD}, new Effect[0]),
+                "Player should be able to buy an arbitrary building with one wood");
+        assertFalse(game.makeAction(0, Location.BUILDING_TILE1, new Effect[]{Effect.WOOD}, new Effect[0]),
+                "Player should NOT be able to buy the same building with the same figure twice");
     }
 
-    @Test
-    void testGameProgression() {
-        // This test ensures that game phases progress correctly
-        // Simulate a basic round of gameplay
-        game.placeFigures(0, Location.FOREST, 2);
-        game.makeAction(0, Location.FOREST, new Effect[0], new Effect[]{Effect.WOOD});
-        game.feedTribe(0, new Effect[]{Effect.FOOD});
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 4})
+    void testNewRound(int numberOfPlayers) throws IOException{
+        setUp(numberOfPlayers);
 
-        // These subsequent actions should now be for the next player
-        assertTrue(game.placeFigures(1, Location.CLAY_MOUND, 1),
-                "Next player should be able to place figures");
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assertTrue(game.placeFigures(i, Location.HUNTING_GROUNDS, 5));
+        }
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assertTrue(game.makeAction(i, Location.HUNTING_GROUNDS, new Effect[0], new Effect[0]));
+        }
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assertTrue(game.feedTribe(i,
+                    new Effect[]{Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD}));
+        }
+
+        // New turn should start automatically
+
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assertTrue(game.placeFigures(i, Location.HUNTING_GROUNDS, 5));
+        }
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assertTrue(game.makeAction(i, Location.HUNTING_GROUNDS, new Effect[0], new Effect[0]));
+        }
+        for (int i = 0; i < numberOfPlayers; i++) {
+            assertTrue(game.feedTribe(i,
+                    new Effect[]{Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD}));
+        }
     }
 }

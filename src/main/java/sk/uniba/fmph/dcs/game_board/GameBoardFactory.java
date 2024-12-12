@@ -7,6 +7,7 @@ import sk.uniba.fmph.dcs.stone_age.BoardFactory;
 import sk.uniba.fmph.dcs.stone_age.InterfaceGetState;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Stack;
@@ -20,9 +21,9 @@ public final class GameBoardFactory extends BoardFactory {
         return new GameBoard(civilisationCardDeck, buildings, players);
     }
 
-    public static GameBoard createGameBoard(final int numberOfPlayers) {
+    public static GameBoard createGameBoard(final int numberOfPlayers) throws IOException {
         CivilisationCardDeck civilisationCardDeck = new CivilisationCardDeck(new Stack<>(){});
-        ArrayList<Building> buildings = new ArrayList<>();
+        ArrayList<Building> buildings = BuildingFactory.createBuildings();
         Player[] players = new Player[numberOfPlayers];
 
         for (int i = 0; i < numberOfPlayers; i++) {

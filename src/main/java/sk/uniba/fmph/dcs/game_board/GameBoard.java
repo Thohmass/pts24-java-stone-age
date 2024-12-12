@@ -22,6 +22,8 @@ public final class GameBoard implements InterfaceGetState {
     private static final int REQUIRED_RESOURCES_CARD2 = 3;
     private static final int REQUIRED_RESOURCES_CARD1 = 4;
     private static final int NUMBER_OF_BUILDING_TILES = 4;
+    private static final int FIGURES_LIMIT_ON_RESOURCE_SOURCES = 7;
+    private static final int FIGURES_LIMIT_ON_HUNTING_GROUNDS = Integer.MAX_VALUE;
 
     public GameBoard(final CivilisationCardDeck deck, final ArrayList<Building> buildings,
                      final Player[] players) {
@@ -39,15 +41,16 @@ public final class GameBoard implements InterfaceGetState {
         // Map<ImmediateEffect, EvaluateCivilisationCardImmediateEffect> evaluate = initializeEvaluationMap();
 
         locations.put(Location.HUNTING_GROUNDS,
-                new ResourceSource("HuntingGrounds", Effect.FOOD, players.length, players.length, currentThrow));
-        locations.put(Location.FOREST, new ResourceSource("Forest", Effect.WOOD, players.length,
-                players.length - 1, currentThrow));
-        locations.put(Location.CLAY_MOUND, new ResourceSource("ClayMound", Effect.CLAY, players.length,
-                players.length - 1, currentThrow));
-        locations.put(Location.QUARRY, new ResourceSource("Quarry", Effect.STONE, players.length,
-                players.length - 1, currentThrow));
-        locations.put(Location.RIVER, new ResourceSource("River", Effect.GOLD, players.length,
-                players.length - 1, currentThrow));
+                new ResourceSource("HuntingGrounds", Effect.FOOD, FIGURES_LIMIT_ON_HUNTING_GROUNDS,
+                        FIGURES_LIMIT_ON_HUNTING_GROUNDS, currentThrow));
+        locations.put(Location.FOREST, new ResourceSource("Forest", Effect.WOOD,
+                FIGURES_LIMIT_ON_RESOURCE_SOURCES, players.length - 1, currentThrow));
+        locations.put(Location.CLAY_MOUND, new ResourceSource("ClayMound", Effect.CLAY,
+                FIGURES_LIMIT_ON_RESOURCE_SOURCES, players.length - 1, currentThrow));
+        locations.put(Location.QUARRY, new ResourceSource("Quarry", Effect.STONE,
+                FIGURES_LIMIT_ON_RESOURCE_SOURCES, players.length - 1, currentThrow));
+        locations.put(Location.RIVER, new ResourceSource("River", Effect.GOLD,
+                FIGURES_LIMIT_ON_RESOURCE_SOURCES, players.length - 1, currentThrow));
 
         CivilisationCardPlace card4 = new CivilisationCardPlace(REQUIRED_RESOURCES_CARD4, deck, deck.getTop(), null);
         CivilisationCardPlace card3 = new CivilisationCardPlace(REQUIRED_RESOURCES_CARD3, deck, deck.getTop(), card4);

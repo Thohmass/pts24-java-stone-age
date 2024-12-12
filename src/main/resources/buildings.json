@@ -1,0 +1,101 @@
+{
+  "buildings": [
+    {
+      "class": "VariableBuilding",
+      "numberOfResources": 5,
+      "numberOfResourceTypes": 3
+    },
+    {
+      "class": "SimpleBuilding",
+      "resources": [
+        "WOOD",
+        "STONE",
+        "GOLD"
+      ]
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    },
+    {
+      "class": "ArbitraryBuilding"
+    }
+  ]
+}

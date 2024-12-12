@@ -26,6 +26,7 @@ public final class CivilisationCardPlace implements InterfaceFigureLocationInter
         this.civilisationCardDeck = civilisationCardDeck;
         this.optionalCivilisationCard = civilisationCard;
         this.nextCivilisationCardPlace = civilisationCardPlace;
+        this.figures = new PlayerOrder[0];
     }
 
     public String state() {
@@ -37,12 +38,11 @@ public final class CivilisationCardPlace implements InterfaceFigureLocationInter
 
     @Override
     public boolean placeFigures(final Player player, final int figureCount) {
-        if (figureCount != MAX_FIGURES || !player.playerBoard().hasFigures(figureCount)
-                || figures.length >= MAX_FIGURES) {
+        if ((figureCount + figures.length) > MAX_FIGURES || !player.playerBoard().hasFigures(figureCount)) {
             return false;
         }
         figures = new PlayerOrder[]{player.playerOrder()};
-        return false;
+        return true;
     }
 
     @Override

@@ -1,0 +1,318 @@
+{
+  "cards": [
+    {
+      "immediateEffects": [
+        "ALL_PLAYERS_TAKE_REWARD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "FOOD",
+        "FOOD",
+        "FOOD"
+      ],
+      "endOfGameEffects": [
+        "FARMER"
+      ]
+    },
+    {
+      "immediateEffects": [
+        "WOOD"
+      ],
+      "endOfGameEffects": [
+        "BUILDER"
+      ]
+    }
+  ]
+}

@@ -64,7 +64,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
             final Effect[] outputResources) {
         if ((this.places.containsKey(location)) && (this.places.get(location) != null)) {
             ActionResult actionResult = this.places.get(location).makeAction(player, inputResources, outputResources);
-            places.remove(location);
+            // places.remove(location); // ???
             return actionResult;
         }
         return ActionResult.FAILURE;
@@ -83,7 +83,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
     @Override
     public ActionResult skipAction(final PlayerOrder player, final Location location) {
         if ((this.skipLocations.contains(location)) && this.places.get(location) != null) {
-            places.remove(location);
+            // places.remove(location);
             return ActionResult.ACTION_DONE;
         }
         return ActionResult.FAILURE;
@@ -180,7 +180,7 @@ public class MakeActionState implements InterfaceGamePhaseState {
         }
         if (actionsNumber == 1) {
             this.places.get(location).makeAction(player, null, null);
-            this.places.remove(location);
+            // this.places.remove(location);
             return HasAction.AUTOMATIC_ACTION_DONE;
         } else if (actionsNumber == 0) {
             return HasAction.NO_ACTION_POSSIBLE;
