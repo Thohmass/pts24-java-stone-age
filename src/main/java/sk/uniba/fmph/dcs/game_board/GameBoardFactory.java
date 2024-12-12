@@ -8,7 +8,6 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
-
 public final class GameBoardFactory{
 
     private GameBoardFactory() { }
