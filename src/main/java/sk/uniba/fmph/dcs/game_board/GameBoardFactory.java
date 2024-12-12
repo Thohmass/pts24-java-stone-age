@@ -3,33 +3,24 @@ package sk.uniba.fmph.dcs.game_board;
 import sk.uniba.fmph.dcs.player_board.PlayerBoard;
 import sk.uniba.fmph.dcs.player_board.PlayerBoardFactory;
 import sk.uniba.fmph.dcs.player_board.PlayerBoardGameBoardFacade;
-import sk.uniba.fmph.dcs.stone_age.BoardFactory;
-import sk.uniba.fmph.dcs.stone_age.InterfaceGetState;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Stack;
 
-public final class GameBoardFactory extends BoardFactory {
-    @Override
-    protected InterfaceGetState createBoard() {
-        CivilisationCardDeck civilisationCardDeck = new CivilisationCardDeck(new Stack<>(){});
-        ArrayList<Building> buildings = new ArrayList<>();
-        Player[] players = new Player[2];
-        return new GameBoard(civilisationCardDeck, buildings, players);
-    }
+public final class GameBoardFactory{
+
+    private GameBoardFactory() { }
 
     public static GameBoard createGameBoard(final int numberOfPlayers) throws IOException {
-        CivilisationCardDeck civilisationCardDeck = new CivilisationCardDeck(new Stack<>(){});
-        ArrayList<Building> buildings = BuildingFactory.createBuildings();
+        CivilisationCardDeck civilisationCardDeck = new CivilisationCardDeck(new Stack<>() { });
+        ArrayList<Building> buildings = BuildingsFactory.createBuildings();
         Player[] players = new Player[numberOfPlayers];
 
         for (int i = 0; i < numberOfPlayers; i++) {
             PlayerOrder playerOrder = new PlayerOrder(i, numberOfPlayers);
-            PlayerBoardFactory playerBoardFactory = new PlayerBoardFactory();
-            PlayerBoard playerBoard = (PlayerBoard) playerBoardFactory.create();
+            PlayerBoard playerBoard = PlayerBoardFactory.createPlayerBoard();
             PlayerBoardGameBoardFacade playerBoardGameBoardFacade = new PlayerBoardGameBoardFacade(playerBoard);
             players[i] = new Player(playerOrder, playerBoardGameBoardFacade);
         }

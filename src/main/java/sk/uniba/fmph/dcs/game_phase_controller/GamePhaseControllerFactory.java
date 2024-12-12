@@ -4,14 +4,21 @@ import sk.uniba.fmph.dcs.game_board.FigureLocationAdaptor;
 import sk.uniba.fmph.dcs.game_board.GameBoard;
 import sk.uniba.fmph.dcs.game_board.Player;
 import sk.uniba.fmph.dcs.game_board.RewardMenu;
-import sk.uniba.fmph.dcs.stone_age.*;
+import sk.uniba.fmph.dcs.stone_age.Location;
+import sk.uniba.fmph.dcs.stone_age.InterfaceFigureLocation;
+import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.InterfaceFeedTribe;
+import sk.uniba.fmph.dcs.stone_age.InterfaceToolUse;
+import sk.uniba.fmph.dcs.stone_age.InterfaceNewTurn;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public final class GamePhaseControllerFactory {
 
-    public static GamePhaseController createGamePhaseController(GameBoard gameBoard) {
+    private GamePhaseControllerFactory() { }
+
+    public static GamePhaseController createGamePhaseController(final GameBoard gameBoard) {
         Map<GamePhase, InterfaceGamePhaseState> gamePhaseStateMap = new HashMap<>();
         Map<Location, InterfaceFigureLocation> figureLocationMap = new HashMap<>();
         for (Location location : Location.values()) {

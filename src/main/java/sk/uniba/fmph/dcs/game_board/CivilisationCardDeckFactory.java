@@ -3,7 +3,6 @@ package sk.uniba.fmph.dcs.game_board;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
-import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
 import sk.uniba.fmph.dcs.stone_age.ImmediateEffect;
 
@@ -13,11 +12,13 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class CivilisationCardDeckFactory {
-    private static final File file = new File("resources/cards");
+public final class CivilisationCardDeckFactory {
+    private static final File FILE = new File("resources/cards");
+
+    private CivilisationCardDeckFactory() { }
 
     public static CivilisationCardDeck createCivilisationCardDeck() throws IOException {
-        String jsonContent = new String(Files.readAllBytes(file.toPath()));
+        String jsonContent = new String(Files.readAllBytes(FILE.toPath()));
 
         JSONObject jsonData = new JSONObject(jsonContent);
 

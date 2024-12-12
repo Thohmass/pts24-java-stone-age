@@ -6,8 +6,6 @@ import sk.uniba.fmph.dcs.stone_age.HasAction;
 import sk.uniba.fmph.dcs.stone_age.InterfaceFigureLocation;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
-import java.util.List;
-
 public final class FigureLocationAdaptor implements InterfaceFigureLocation {
     private final InterfaceFigureLocationInternal figureLocationInternal;
     private final Player[] players;

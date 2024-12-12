@@ -1,6 +1,5 @@
 package sk.uniba.fmph.dcs.game_phase_controller;
 
-import sk.uniba.fmph.dcs.game_board.RewardMenu;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import sk.uniba.fmph.dcs.stone_age.Location;
 import sk.uniba.fmph.dcs.stone_age.ActionResult;

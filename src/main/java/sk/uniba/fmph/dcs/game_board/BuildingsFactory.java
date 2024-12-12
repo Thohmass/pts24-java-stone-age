@@ -2,24 +2,19 @@ package sk.uniba.fmph.dcs.game_board;
 
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import org.json.*;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Stack;
 
-public abstract class BuildingFactory {
+public final class BuildingsFactory {
 
-    protected static final File file = new File("src/main/resources/buildings.json");
-
-    public Building create(Effect[] resources, int numberOfResources, int numberOfResourceTypes) {
-        return createBuilding(resources, numberOfResources, numberOfResourceTypes);
-    }
+    private static final File FILE = new File("src/main/resources/buildings.json");
 
     public static ArrayList<Building> createBuildings() throws IOException {
-        String jsonContent = new String(Files.readAllBytes(file.toPath()));
+        String jsonContent = new String(Files.readAllBytes(FILE.toPath()));
 
         JSONObject jsonData = new JSONObject(jsonContent);
 
@@ -46,6 +41,8 @@ public abstract class BuildingFactory {
                         resources.add(resourcesJson.getEnum(Effect.class, j));
                     }
                     buildings.add(new SimpleBuilding(resources.toArray(new Effect[0])));
+                    break;
+                default:
                     break;
             }
         }
@@ -82,11 +79,11 @@ public abstract class BuildingFactory {
                     }
                     buildings.add(new SimpleBuilding(resources.toArray(new Effect[0])));
                     break;
+                default:
+                    break;
             }
         }
 
         return buildings;
     }
-
-    protected abstract Building createBuilding(Effect[] resources, int numberOfResources, int numberOfResourceTypes);
 }
