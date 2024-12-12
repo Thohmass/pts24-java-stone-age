@@ -3,21 +3,23 @@ package sk.uniba.fmph.dcs.game_board;
 import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-public class GetCard implements EvaluateCivilisationCardImmediateEffect {
-    private final CivilisationCard card;
+import java.util.Optional;
 
-    public GetCard(final CivilisationCard card) {
-        this.card = card;
-    }
+public final class GetCard implements EvaluateCivilisationCardImmediateEffect {
 
-    public final String state() {
-        return "get card";
+    private final CivilisationCardDeck civilisationCardDeck;
 
+    public GetCard(final CivilisationCardDeck civilisationCardDeck) {
+        this.civilisationCardDeck = civilisationCardDeck;
     }
 
     @Override
-    public final Boolean performEffect(final Player player, final Effect choice) {
-        player.playerBoard().giveEndOfGameEffect(card.endOfGameEffect());
+    public Boolean performEffect(final Player player, final Effect choice) {
+        Optional<CivilisationCard> card = civilisationCardDeck.getTop();
+        if (card.isEmpty()) {
+            return false;
+        }
+        player.playerBoard().giveEndOfGameEffect(card.get().endOfGameEffect());
         return true;
     }
 }

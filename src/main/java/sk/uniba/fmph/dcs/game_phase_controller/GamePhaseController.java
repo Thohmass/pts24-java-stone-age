@@ -29,9 +29,7 @@ public final class GamePhaseController implements InterfaceGamePhaseController {
 
     private boolean checkPlayersTurn(final PlayerOrder player) {
         switch (gamePhase) {
-        case PLACE_FIGURES:
-        case MAKE_ACTION:
-        case WAITING_FOR_TOOL_USE:
+        case PLACE_FIGURES, MAKE_ACTION, WAITING_FOR_TOOL_USE:
             return player.equals(currentPlayer);
         case ALL_PLAYERS_TAKE_A_REWARD:
             return currentPlayerTakingReward.isPresent() && player.equals(currentPlayerTakingReward.get());
@@ -49,6 +47,8 @@ public final class GamePhaseController implements InterfaceGamePhaseController {
     private void progressStateAfterSuccessfulAction() {
         switch (gamePhase) {
         case PLACE_FIGURES:
+            currentPlayer = currentPlayer.forward();
+            break;
         case FEED_TRIBE:
             currentPlayer = currentPlayer.forward();
             break;
@@ -168,7 +168,7 @@ public final class GamePhaseController implements InterfaceGamePhaseController {
     }
 
     public boolean placeFigures(final PlayerOrder player, final Location location, final int figuresCount) {
-        if (!checkPlayersTurn(player)) {
+        if (!checkPlayersTurn(player) || figuresCount <= 0) {
             return false;
         }
         InterfaceGamePhaseState dispatcher = dispatchers.get(gamePhase);

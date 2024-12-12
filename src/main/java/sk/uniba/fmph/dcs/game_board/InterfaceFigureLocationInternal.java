@@ -4,7 +4,7 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
-public interface InterFaceFigureLocationInternal {
+public interface InterfaceFigureLocationInternal {
     boolean placeFigures(Player player, int figureCount);
 
     HasAction tryToPlaceFigures(Player player, int count);

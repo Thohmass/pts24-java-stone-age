@@ -7,11 +7,9 @@ import java.util.Map;
 public final class StoneAgeGame implements InterfaceStoneAgeGame {
 
     private final Map<Integer, PlayerOrder> players;
-
     private final GamePhaseController gamePhaseController;
     private final InterfaceGetState gameBoardState;
     private final InterfaceGetState playerBoardState;
-
     private final StoneAgeObservable stoneAgeObservable;
 
     private void notifyObserver() {

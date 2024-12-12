@@ -3,72 +3,57 @@ package sk.uniba.fmph.dcs.game_board;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.InterfaceToolUse;
 
-public class CurrentThrow implements InterfaceToolUse {
+import java.util.Arrays;
+import java.util.Optional;
+
+public final class CurrentThrow implements InterfaceToolUse {
 
     private Effect throwsFor;
     private int throwResult;
+    private Player player;
+    private boolean finishedUsingTools;
 
-    public CurrentThrow(final Effect throwsFor, final int throwResult) {
+    public CurrentThrow(final Effect throwsFor) {
         this.throwsFor = throwsFor;
-        this.throwResult = throwResult;
+        this.throwResult = 0;
+        finishedUsingTools = false;
+        player = null;
     }
-
-    /**
-     *
-     * @param player
-     *            - current player
-     * @param effect
-     *            - effect
-     * @param dices
-     *            - number of dices
-     */
 
     public void initiate(final Player player, final Effect effect, final int dices) {
-        // todo
+        this.player = player;
+        throwsFor = effect;
+        throwResult = Arrays.stream(new Throw().throwDice(dices)).sum();
+        finishedUsingTools = false;
     }
-
-    /**
-     *
-     * @return - string
-     */
 
     public String state() {
-        // todo
-        return null;
+        return "Player: " + player.toString();
     }
-
-    /**
-     *
-     * @param idx
-     *
-     * @return
-     */
 
     @Override
     public boolean useTool(final int idx) {
-        // todo
-        return false;
+        Optional<Integer> tool = player.playerBoard().useTool(idx);
+        if (tool.isEmpty()) {
+            return false;
+        }
+        throwResult += tool.orElse(0);
+        return true;
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public boolean canUseTools() {
-        // todo
-        return false;
+        int goal = throwResult % throwsFor.points();
+        return player.playerBoard().hasSufficientTools(goal) && finishedUsingTools;
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public boolean finishUsingTools() {
-        // todo
-        return false;
+        finishedUsingTools = true;
+        return true;
+    }
+
+    public int getThrowResult() {
+        return throwResult;
     }
 }

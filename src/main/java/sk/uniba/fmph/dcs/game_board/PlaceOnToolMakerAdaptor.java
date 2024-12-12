@@ -4,7 +4,7 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 
-public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInternal {
+public final class PlaceOnToolMakerAdaptor implements InterfaceFigureLocationInternal {
     private final ToolMakerHutFields tools;
 
     public PlaceOnToolMakerAdaptor(final ToolMakerHutFields tools) {
@@ -22,9 +22,9 @@ public final class PlaceOnToolMakerAdaptor implements InterFaceFigureLocationInt
     @Override
     public HasAction tryToPlaceFigures(final Player player, final int count) {
         if (count == 1 && player.playerBoard().hasFigures(count) && tools.canPlaceOnToolMaker(player)) {
-            return HasAction.NO_ACTION_POSSIBLE;
+            return HasAction.WAITING_FOR_PLAYER_ACTION;
         }
-        return HasAction.WAITING_FOR_PLAYER_ACTION;
+        return HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override

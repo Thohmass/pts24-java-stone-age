@@ -3,12 +3,14 @@ package sk.uniba.fmph.dcs.game_board;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
-public final class ToolMakerHutFields {
-    private PlayerOrder[] toolMakerFigures;
-    private PlayerOrder[] hutFigures;
-    private PlayerOrder[] fieldsFigures;
-    private final int restriction;
+import java.util.ArrayList;
 
+public final class ToolMakerHutFields {
+    private ArrayList<PlayerOrder> toolMakerFigures;
+    private ArrayList<PlayerOrder> hutFigures;
+    private ArrayList<PlayerOrder> fieldsFigures;
+    private static final int MAX_FIGURES = 1;
+    private final int restriction;
     private final int noRestrictionPlayers = 4;
     private final int noRestriction = 3;
 
@@ -17,20 +19,21 @@ public final class ToolMakerHutFields {
     private Boolean canFields;
 
     public ToolMakerHutFields(final int players) {
-        this.toolMakerFigures = new PlayerOrder[1];
-        this.hutFigures = new PlayerOrder[2];
-        this.fieldsFigures = new PlayerOrder[1];
+        this.toolMakerFigures = new ArrayList<>();
+        this.hutFigures = new ArrayList<>();
+        this.fieldsFigures = new ArrayList<>();
 
-        canToolMaker = null;
-        canHut = null;
-        canFields = null;
+        canToolMaker = false;
+        canHut = false;
+        canFields = false;
 
         restriction = players < noRestrictionPlayers ? noRestriction - 1 : noRestriction;
     }
 
     public boolean placeOnToolMaker(final Player player) {
         if (canPlaceOnToolMaker(player)) {
-            toolMakerFigures[0] = player.playerOrder();
+            toolMakerFigures.add(player.playerOrder());
+            player.playerBoard().takeFigures(MAX_FIGURES);
             canToolMaker = true;
             return true;
         }
@@ -47,14 +50,19 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnToolMaker(final Player player) {
-        return toolMakerFigures[0] == null && canPlace();
+        return toolMakerFigures.isEmpty() && player.playerBoard().hasFigures(MAX_FIGURES) && canPlace();
+    }
+
+    public boolean canActionToolMaker(final Player player) {
+        return canToolMaker && toolMakerFigures.contains(player.playerOrder());
     }
 
     public boolean placeOnHut(final Player player) {
         if (canPlaceOnHut(player)) {
             player.playerBoard().takeFigures(2);
-            for (int i = 0; i < 2; i++) {
-                hutFigures[i] = player.playerOrder();
+            for (int i = 0; i < MAX_FIGURES + 1; i++) {
+                hutFigures.add(player.playerOrder());
+                player.playerBoard().takeFigures(MAX_FIGURES);
             }
             canHut = true;
             return true;
@@ -72,12 +80,18 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnHut(final Player player) {
-        return hutFigures[0] == null && canPlace();
+        return hutFigures.isEmpty() && player.playerBoard().hasFigures(MAX_FIGURES + 1) && canPlace();
+    }
+
+
+    public boolean canActionHut(final Player player) {
+        return canHut && hutFigures.contains(player.playerOrder());
     }
 
     public boolean placeOnFields(final Player player) {
         if (canPlaceOnFields(player)) {
-            fieldsFigures[0] = player.playerOrder();
+            fieldsFigures.add(player.playerOrder());
+            player.playerBoard().takeFigures(MAX_FIGURES);
             canFields = true;
             return true;
         }
@@ -94,7 +108,11 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnFields(final Player player) {
-        return fieldsFigures[0] == null && canPlace();
+        return fieldsFigures.isEmpty() && player.playerBoard().hasFigures(MAX_FIGURES) && canPlace();
+    }
+
+    public boolean canActionFields(final Player player) {
+        return canFields && fieldsFigures.contains(player.playerOrder());
     }
 
     public boolean newTurn() {
@@ -109,9 +127,9 @@ public final class ToolMakerHutFields {
         }
 
         if (!(canHut && canFields && canToolMaker)) {
-            this.toolMakerFigures = new PlayerOrder[1];
-            this.hutFigures = new PlayerOrder[2];
-            this.fieldsFigures = new PlayerOrder[1];
+            this.toolMakerFigures.clear();
+            this.hutFigures.clear();
+            this.fieldsFigures.clear();
 
             canToolMaker = null;
             canHut = null;
@@ -122,27 +140,15 @@ public final class ToolMakerHutFields {
         return false;
     }
 
-    public boolean canActionHut(final Player player) {
-        return canHut != null && canHut && hutFigures[0].equals(player.playerOrder());
-    }
-
-    public boolean canActionToolMaker(final Player player) {
-        return canToolMaker != null && canToolMaker && toolMakerFigures[0].equals(player.playerOrder());
-    }
-
-    public boolean canActionFields(final Player player) {
-        return canFields != null && canFields && fieldsFigures[0].equals(player.playerOrder());
-    }
-
     private boolean canPlace() {
         int filled = 0;
-        if (toolMakerFigures[0] == null) {
+        if (!toolMakerFigures.isEmpty()) {
             filled++;
         }
-        if (hutFigures[0] == null) {
+        if (!hutFigures.isEmpty()) {
             filled++;
         }
-        if (fieldsFigures[0] == null) {
+        if (!fieldsFigures.isEmpty()) {
             filled++;
         }
         return filled < restriction;
