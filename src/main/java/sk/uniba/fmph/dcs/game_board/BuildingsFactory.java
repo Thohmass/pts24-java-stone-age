@@ -13,6 +13,8 @@ public final class BuildingsFactory {
 
     private static final File FILE = new File("src/main/resources/buildings.json");
 
+    private BuildingsFactory() { }
+
     public static ArrayList<Building> createBuildings() throws IOException {
         String jsonContent = new String(Files.readAllBytes(FILE.toPath()));
 
